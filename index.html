@@ -149,21 +149,21 @@ select {
 
 <script>
 // ------------------ DATA ------------------
-const animals = ["rat","ox","tiger","rabbit","dragon","snake","horse","goat","monkey","rooster","dog","pig"];
+const animals = ["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"];
 const elements = ["Wood","Fire","Earth","Metal","Water"];
 const zodiacYears = {
-  "rat": { "Wood":[1924,1984], "Fire":[1936,1996], "Earth":[1948,2008], "Metal":[1960,2020], "Water":[1912,1972] },
-  "ox": { "Wood":[1925,1985], "Fire":[1937,1997], "Earth":[1949,2009], "Metal":[1961,2021], "Water":[1913,1973] },
-  "tiger": { "Wood":[1926,1986], "Fire":[1938,1998], "Earth":[1950,2010], "Metal":[1962,2022], "Water":[1914,1974] },
-  "rabbit": { "Wood":[1927,1987], "Fire":[1939,1999], "Earth":[1951,2011], "Metal":[1963,2023], "Water":[1915,1975] },
-  "dragon": { "Wood":[1928,1988], "Fire":[1940,2000], "Earth":[1952,2012], "Metal":[1964,2024], "Water":[1916,1976] },
-  "snake": { "Wood":[1929,1989], "Fire":[1941,2001], "Earth":[1953,2013], "Metal":[1965,2025], "Water":[1917,1977] },
-  "horse": { "Wood":[1930,1990], "Fire":[1942,2002], "Earth":[1954,2014], "Metal":[1966,2026], "Water":[1918,1978] },
-  "goat": { "Wood":[1931,1991], "Fire":[1943,2003], "Earth":[1955,2015], "Metal":[1967,2027], "Water":[1919,1979] },
-  "monkey": { "Wood":[1932,1992], "Fire":[1944,2004], "Earth":[1956,2016], "Metal":[1968,2028], "Water":[1920,1980] },
-  "rooster": { "Wood":[1933,1993], "Fire":[1945,2005], "Earth":[1957,2017], "Metal":[1969,2029], "Water":[1921,1981] },
-  "dog": { "Wood":[1934,1994], "Fire":[1946,2006], "Earth":[1958,2018], "Metal":[1970,2030], "Water":[1922,1982] },
-  "pig": { "Wood":[1935,1995], "Fire":[1947,2007], "Earth":[1959,2019], "Metal":[1971,2031], "Water":[1923,1983] },
+  "Rat": { "Wood":[1924,1984], "Fire":[1936,1996], "Earth":[1948,2008], "Metal":[1960,2020], "Water":[1912,1972] },
+  "Ox": { "Wood":[1925,1985], "Fire":[1937,1997], "Earth":[1949,2009], "Metal":[1961,2021], "Water":[1913,1973] },
+  "Tiger": { "Wood":[1926,1986], "Fire":[1938,1998], "Earth":[1950,2010], "Metal":[1962,2022], "Water":[1914,1974] },
+  "Rabbit": { "Wood":[1927,1987], "Fire":[1939,1999], "Earth":[1951,2011], "Metal":[1963,2023], "Water":[1915,1975] },
+  "Dragon": { "Wood":[1928,1988], "Fire":[1940,2000], "Earth":[1952,2012], "Metal":[1964,2024], "Water":[1916,1976] },
+  "Snake": { "Wood":[1929,1989], "Fire":[1941,2001], "Earth":[1953,2013], "Metal":[1965,2025], "Water":[1917,1977] },
+  "Horse": { "Wood":[1930,1990], "Fire":[1942,2002], "Earth":[1954,2014], "Metal":[1966,2026], "Water":[1918,1978] },
+  "Goat": { "Wood":[1931,1991], "Fire":[1943,2003], "Earth":[1955,2015], "Metal":[1967,2027], "Water":[1919,1979] },
+  "Monkey": { "Wood":[1932,1992], "Fire":[1944,2004], "Earth":[1956,2016], "Metal":[1968,2028], "Water":[1920,1980] },
+  "Rooster": { "Wood":[1933,1993], "Fire":[1945,2005], "Earth":[1957,2017], "Metal":[1969,2029], "Water":[1921,1981] },
+  "Dog": { "Wood":[1934,1994], "Fire":[1946,2006], "Earth":[1958,2018], "Metal":[1970,2030], "Water":[1922,1982] },
+  "Pig": { "Wood":[1935,1995], "Fire":[1947,2007], "Earth":[1959,2019], "Metal":[1971,2031], "Water":[1923,1983] },
 };
 
 // ------------------ FUNCTIONS ------------------
@@ -208,7 +208,7 @@ function initReels(){
     for(let j=0;j<2;j++){
       for(const animal of animals){
         const img = document.createElement("img");
-        img.src = `images/${animal}.png`;
+img.src = `images/${animal}.png`;
         reelDiv.appendChild(img);
       }
     }
