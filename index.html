@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chinese Zodiac Slot Machine</title>
+<style>
+/* ------------------ FONT ------------------ */
+@import url('https://fonts.googleapis.com/css?family=Rubik:700&display=swap');
+
+/* ------------------ BODY ------------------ */
+body {
+  text-align:center;
+  font-family:sans-serif;
+  background:#FFD6D7;
+  color:#fff;
+}
+
+/* ------------------ BIRTHDAY DROPDOWNS ------------------ */
+select {
+  padding:10px;
+  font-size:16px;
+  margin:5px;
+}
+
+/* ------------------ SPIN BUTTON ------------------ */
+#spinButton {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 700;
+  background: #b12424;         /* pink */
+  color: #ffffff;              /* text color */
+  border: 2px solid #000000;   /* pink border */
+  padding: 12px 25px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px #ca3434;
+  transition: all 0.2s ease-in-out;
+}
+
+#spinButton:hover {
+  background: #bd3c3c;        /* light pink on hover */
+  box-shadow: 0 6px 8px #be3838;
+  transform: translateY(-2px);
+}
+
+/* ------------------ APNG TITLE ------------------ */
+#title-img {
+  width:600px;
+  height:auto;
+  margin-top:20px;
+}
+
+/* ------------------ REELS ------------------ */
+#reels {
+  display:flex;
+  justify-content:center;
+  margin-top:40px;
+}
+
+.reel-container {
+  width:100px;
+  height:100px;
+  overflow:hidden;
+  border:4px solid #fff;
+  margin:0 10px;
+  position:relative;
+  border-radius:8px;
+  box-shadow: 0 0 10px #fff;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 10px #fff; }
+  50% { box-shadow: 0 0 20px #ff0, 0 0 30px #f90; }
+  100% { box-shadow: 0 0 10px #fff; }
+}
+
+.reel {
+  display:flex;
+  flex-direction:column;
+  position:absolute;
+  top:0;
+}
+
+.reel img {
+  width:100px;
+  height:100px;
+  object-fit:contain;
+}
+
+/* ------------------ OVERLAY ------------------ */
+.overlay {
+  position:absolute;
+  top:-5px;
+  left:-5px;
+  width:110%;
+  height:110%;
+  pointer-events:none;
+  z-index:10;
+}
+
+/* ------------------ DETAILS ------------------ */
+#details {
+  margin-top:30px;
+  font-size:16px;
+  max-width:350px;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:left;
+  white-space:pre-wrap;
+}
+</style>
+</head>
+<body>
+
+<!-- APNG title -->
+<img id="title-img" src="images/title.apng" alt="Chinese Zodiac Slot Machine">
+
+<br><br>
+
+<!-- Birthday dropdowns -->
+<select id="month"></select>
+<select id="day"></select>
+<select id="year"></select>
+<br><br><br>
+
+<!-- Styled pink spin button -->
+<button id="spinButton" onclick="startSpin()">Get My Zodiac!</button>
+<br><br>
+
+<!-- Reels with overlay per reel -->
+<div id="reels">
+  <div class="reel-container">
+    <div class="reel" id="reel1"></div>
+    <img src="images/overlay.png" class="overlay">
+  </div>
+  <div class="reel-container">
+    <div class="reel" id="reel2"></div>
+    <img src="images/overlay.png" class="overlay">
+  </div>
+  <div class="reel-container">
+    <div class="reel" id="reel3"></div>
+    <img src="images/overlay.png" class="overlay">
+  </div>
+</div>
+
+<div id="details"></div>
+
+<script>
+// ------------------ DATA ------------------
+const animals = ["rat","ox","tiger","rabbit","dragon","snake","horse","goat","monkey","rooster","dog","pig"];
+const elements = ["Wood","Fire","Earth","Metal","Water"];
+const zodiacYears = {
+  "rat": { "Wood":[1924,1984], "Fire":[1936,1996], "Earth":[1948,2008], "Metal":[1960,2020], "Water":[1912,1972] },
+  "ox": { "Wood":[1925,1985], "Fire":[1937,1997], "Earth":[1949,2009], "Metal":[1961,2021], "Water":[1913,1973] },
+  "tiger": { "Wood":[1926,1986], "Fire":[1938,1998], "Earth":[1950,2010], "Metal":[1962,2022], "Water":[1914,1974] },
+  "rabbit": { "Wood":[1927,1987], "Fire":[1939,1999], "Earth":[1951,2011], "Metal":[1963,2023], "Water":[1915,1975] },
+  "dragon": { "Wood":[1928,1988], "Fire":[1940,2000], "Earth":[1952,2012], "Metal":[1964,2024], "Water":[1916,1976] },
+  "snake": { "Wood":[1929,1989], "Fire":[1941,2001], "Earth":[1953,2013], "Metal":[1965,2025], "Water":[1917,1977] },
+  "horse": { "Wood":[1930,1990], "Fire":[1942,2002], "Earth":[1954,2014], "Metal":[1966,2026], "Water":[1918,1978] },
+  "goat": { "Wood":[1931,1991], "Fire":[1943,2003], "Earth":[1955,2015], "Metal":[1967,2027], "Water":[1919,1979] },
+  "monkey": { "Wood":[1932,1992], "Fire":[1944,2004], "Earth":[1956,2016], "Metal":[1968,2028], "Water":[1920,1980] },
+  "rooster": { "Wood":[1933,1993], "Fire":[1945,2005], "Earth":[1957,2017], "Metal":[1969,2029], "Water":[1921,1981] },
+  "dog": { "Wood":[1934,1994], "Fire":[1946,2006], "Earth":[1958,2018], "Metal":[1970,2030], "Water":[1922,1982] },
+  "pig": { "Wood":[1935,1995], "Fire":[1947,2007], "Earth":[1959,2019], "Metal":[1971,2031], "Water":[1923,1983] },
+};
+
+// ------------------ FUNCTIONS ------------------
+
+// Populate birthday dropdowns
+function initBirthdayDropdowns(){
+  const monthSelect = document.getElementById("month");
+  const daySelect = document.getElementById("day");
+  const yearSelect = document.getElementById("year");
+  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  monthNames.forEach((m,i)=> monthSelect.add(new Option(m,i+1)));
+  for(let d=1; d<=31; d++) daySelect.add(new Option(d,d));
+  const currentYear = new Date().getFullYear();
+  const minYear = currentYear - 100;
+  for(let y=minYear; y<=currentYear; y++) yearSelect.add(new Option(y,y));
+}
+
+// Get zodiac from dropdowns
+function getUserZodiacFromDropdown(){
+  const year = parseInt(document.getElementById("year").value);
+  const animal = animals[(year - 4) % 12];
+  const element = elements[Math.floor(((year - 4) % 10)/2)];
+  return {animal, element, year};
+}
+
+// Generate text description
+function generateZodiacText(animal, element, year){
+  let text = `Your Zodiac: ${element} ${animal.charAt(0).toUpperCase()+animal.slice(1)} (${year})\n\n`;
+  text += "Other years for this animal by element:\n";
+  const years = zodiacYears[animal];
+  for(const el of elements){
+    text += `${el}: ${years[el].join(', ')}\n`;
+  }
+  return text;
+}
+
+// Initialize reels with images
+function initReels(){
+  for(let i=1;i<=3;i++){
+    const reelDiv = document.getElementById("reel"+i);
+    reelDiv.innerHTML = "";
+    for(let j=0;j<2;j++){
+      for(const animal of animals){
+        const img = document.createElement("img");
+        img.src = `images/${animal}.png`;
+        reelDiv.appendChild(img);
+      }
+    }
+    reelDiv.style.top = "0px";
+  }
+}
+
+// Spin all reels simultaneously, stop left → middle → right
+function startSpin(){
+  const {animal, element, year} = getUserZodiacFromDropdown();
+  const reels = [document.getElementById("reel1"), document.getElementById("reel2"), document.getElementById("reel3")];
+  const targetIndex = animals.indexOf(animal);
+  const spinDurations = [2000, 2500, 3000]; // left, middle, right
+
+  reels.forEach((reel,i)=>{
+    const startTime = Date.now();
+    const interval = setInterval(()=>{
+      let currentTop = parseInt(reel.style.top) || 0;
+      currentTop -= 100;
+      if(Math.abs(currentTop) >= 12*100) currentTop = 0;
+      reel.style.transition = "top 0.08s linear";
+      reel.style.top = currentTop + "px";
+
+      if(Date.now() - startTime >= spinDurations[i]){
+        clearInterval(interval);
+        reel.style.transition = "top 0.5s ease-out";
+        reel.style.top = -(targetIndex*100) + "px";
+
+        if(i===2){
+          document.getElementById("details").innerText = generateZodiacText(animal, element, year);
+        }
+      }
+    },80);
+  });
+}
+
+// ------------------ INIT ------------------
+initBirthdayDropdowns();
+initReels();
+</script>
+
+</body>
+</html>
