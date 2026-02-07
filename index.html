@@ -6,7 +6,7 @@
 <title>Chinese Zodiac Slot Machine</title>
 
 <!-- Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Rubik:700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Rubik:700&family=Allura&display=swap" rel="stylesheet">
 
 <!-- Canvas Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
@@ -14,8 +14,8 @@
 <style>
 body {
   text-align:center;
-  font-family:Century Gothic;
-  background:#FFD6D7;
+  font-family: 'Allura', cursive;
+  background:#ffe6e9;
   color:#fff;
   margin:0;
   padding:0;
@@ -30,22 +30,51 @@ select {
 
 /* Spin button */
 #spinButton {
-  font-family: 'FiraSans', Century Gothic;
-  font-weight: 700;
-  background: #b12424;
-  color: #ffffff;
+  position: relative;
+  font-family: 'Allura', cursive;
+  font-weight: 600;
+  color: #382b22;
+  text-transform: uppercase;
+  padding: 1.25em 2em;
+  background: #be3838;
   border: 2px solid #000000;
-  padding: 12px 25px;
-  font-size: 18px;
-  border-radius: 8px;
+  border-radius: 0.75em;
   cursor: pointer;
-  box-shadow: 0 4px 6px #ca3434;
-  transition: all 0.2s ease-in-out;
+  outline: none;
+  transform-style: preserve-3d;
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+#spinButton::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #972525;
+  border-radius: inherit;
+  box-shadow: 0 0 0 2px #000000, 0 0.625em 0 0 #ffe6e9;
+  transform: translate3d(0, 0.75em, -1em);
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+  z-index: -1;
 }
 #spinButton:hover {
-  background: #bd3c3c;
-  box-shadow: 0 6px 8px #be3838;
-  transform: translateY(-2px);
+  background: #972525;
+  transform: translate(0, 0.25em);
+}
+#spinButton:hover::before {
+  box-shadow: 0 0 0 2px #000000, 0 0.5em 0 0 #ffe6e9;
+  transform: translate3d(0, 0.5em, -1em);
+}
+#spinButton:active {
+  background: #972525;
+  transform: translate(0em, 0.75em);
+}
+#spinButton:active::before {
+  box-shadow: 0 0 0 2px #000000, 0 0 #ffe6e9;
+  transform: translate3d(0, 0, -1em);
 }
 
 /* APNG title auto-size */
@@ -66,6 +95,7 @@ select {
   width:100px;
   height:100px;
   overflow:hidden;
+  background:#fff;
   border:4px solid #fff;
   margin:0 10px;
   position:relative;
@@ -74,9 +104,9 @@ select {
   animation: glow 2s infinite alternate;
 }
 @keyframes glow {
-  0% { box-shadow: 0 0 10px #fff; }
-  50% { box-shadow: 0 0 20px #be3838, 0 0 30px #be3838; }
-  100% { box-shadow: 0 0 10px #fff; }
+  0% { box-shadow: 0 0 9px #ffffff; }
+  50% { box-shadow: 0 0 15px #be3838, 0 0 25px #af2424; }
+  100% { box-shadow: 0 0 9px #ffe6e9; }
 }
 .reel {
   display:flex;
@@ -90,21 +120,37 @@ select {
   object-fit:contain;
 }
 
+/* Single photo slot styles */
+.reel-container.single {
+  width:220px;
+  height:220px;
+  margin:0 auto;
+}
+.reel-container.single img.single-photo{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:8px;
+}
+#reels { transition: opacity 300ms ease; }
+
 /* Overlay */
 .overlay {
   position:absolute;
-  top:-5px;
-  left:-5px;
-  width:110%;
-  height:110%;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
   pointer-events:none;
   z-index:10;
+  display:block;
+  object-fit:cover;
 }
 
 /* Zodiac details */
 #details {
   margin-top:30px;
-  font-family:'FiraSans', Century Gothic;
+  font-family: 'Allura', cursive;
   font-size:18px;
   color:#382b22;
   max-width:350px;
@@ -112,7 +158,35 @@ select {
   margin-right:auto;
   text-align:left;
   white-space:pre-wrap;
+  background:#FFFFFF;
+  padding:20px;
+  border-radius:0px;
+  border: 2px solid #be3838; /* thin red border */
+  display:none;
+  max-height:220px; /* limit height when text grows */
+  overflow:auto; /* enable scrollbar */
+  box-sizing:border-box;
+  animation: popUp 0.6s ease-out;
 }
+#details.show {
+  display:block;
+}
+@keyframes popUp {
+  0% {
+    opacity:0;
+    transform:scale(0.5);
+  }
+  100% {
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+/* Styled scrollbars (WebKit) */
+#details::-webkit-scrollbar { width:11px; }
+#details::-webkit-scrollbar-track { background: #ffffff; border-radius:9px; }
+#details::-webkit-scrollbar-thumb { background: #ffe6e9; border-radius:9px; border:2px solid #ffffff; }
+#details { scrollbar-width: thin; scrollbar-color: #ffe6e9 #ffffff; }
 </style>
 </head>
 <body>
@@ -129,7 +203,57 @@ select {
 <br><br><br>
 
 <!-- Spin button -->
-<button id="spinButton" onclick="startSpin()">Get My Zodiac!</button>
+<button id="spinButton" onclick="startSpin()"><span class="gold">Get My Zodiac!</span></button>
+
+<style>
+/* Gold glitter text for #spinButton */
+#spinButton { position: relative; overflow: visible; }
+#spinButton .gold {
+  display: inline-block;
+  position: relative;
+  font-family: Allura, cursive;
+  font-weight: 600;
+  text-transform: uppercase;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  background-image: linear-gradient(90deg, #daa520 0%, #e8b923 25%, #ffe550 50%, #ffd700 75%, #b8860b 100%);
+  background-size: 200% 100%;
+  animation: goldShift 3s linear infinite;
+  letter-spacing: 1px;
+  z-index: 1;
+}
+
+/* subtle glitter speckles */
+#spinButton .gold::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.9) 1px, rgba(255,255,255,0) 2px);
+  background-size: 6px 6px;
+  opacity: 0.06;
+  animation: twinkle 1.5s infinite linear;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes goldShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+@keyframes shimmer {
+  0% { left: -60%; opacity: 0; }
+  40% { opacity: 1; }
+  60% { opacity: 1; }
+  100% { left: 150%; opacity: 0; }
+}
+@keyframes twinkle {
+  0% { opacity: 0.04; transform: translateY(0); }
+  50% { opacity: 0.12; transform: translateY(-1px); }
+  100% { opacity: 0.04; transform: translateY(0); }
+}
+</style>
 <br><br>
 
 <!-- Reels -->
@@ -153,6 +277,29 @@ select {
 <script>
 // ------------------ DATA ------------------
 const animals = ["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"];
+// Map ASCII base name -> Chinese character for display (used in details/title)
+const chineseSymbol = {
+  Rat: '鼠',
+  Ox: '牛',
+  Tiger: '虎',
+  Rabbit: '兔',
+  Dragon: '龍',
+  Snake: '蛇',
+  Horse: '馬',
+  Goat: '羊',
+  Monkey: '猴',
+  Rooster: '雞',
+  Dog: '狗',
+  Pig: '豬'
+};
+// Element Chinese characters (used only for the "Other years by element" output)
+const elementChinese = {
+  Wood: '木',
+  Fire: '火',
+  Earth: '土',
+  Metal: '金',
+  Water: '水'
+};
 const elements = ["Wood","Fire","Earth","Metal","Water"];
 const zodiacYears = {
 "Rat": { "Wood":[1924,1984,2044], "Fire":[1936,1996,2056], "Earth":[1948,2008,2068], "Metal":[1960,2020,2080], "Water":[1912,1972,2032] },
@@ -178,8 +325,8 @@ function initBirthdayDropdowns(){
   monthNames.forEach((m,i)=> monthSelect.add(new Option(m,i+1)));
   for(let d=1; d<=31; d++) daySelect.add(new Option(d,d));
   const currentYear = new Date().getFullYear();
-  const minYear = currentYear - 100;
-  for(let y=minYear; y<=currentYear; y++) yearSelect.add(new Option(y,y));
+  const minYear = currentYear - 80;
+  for(let y=currentYear; y>=minYear; y--) yearSelect.add(new Option(y,y));
 }
 
 function getUserZodiacFromDropdown(){
@@ -190,10 +337,21 @@ function getUserZodiacFromDropdown(){
 }
 
 function generateZodiacText(animal, element, year){
-  let text = `Your Zodiac: ${element} ${animal} (${year})\n\nOther years by element:\n`;
-  const years = zodiacYears[animal];
+  // base ASCII key (e.g., "Ox牛" -> "Ox") to lookup data and symbol
+  const baseKey = animal.replace(/[^A-Za-z0-9]/g,'');
+  const displayAnimal = `${baseKey} ${chineseSymbol[baseKey] || ''}`.trim();
+  let text = `Your Zodiac: ${element} ${displayAnimal} (${year})\n\nOther years by element:\n`;
+  
+  
+  // Allow lookups whether the animal key has extra characters or not
+  const lookupKey = zodiacYears[animal] ? animal : (zodiacYears[baseKey] ? baseKey : animal.replace(/\s+/g, ''));
+  const years = zodiacYears[lookupKey];
+  if(!years){
+    return `Your Zodiac: ${element} ${displayAnimal} (${year})\n\nDetails unavailable.`;
+  }
   for(const el of elements){
-    text += `${el}: ${years[el].join(', ')}\n`;
+    const sym = elementChinese[el] ? ` ${elementChinese[el]}` : '';
+    text += `${el}${sym}: ${years[el].join(', ')}\n`;
   }
   return text;
 }
@@ -206,10 +364,19 @@ function initReels(){
       for(const animal of animals){
         const img = document.createElement("img");
         img.src = `images/${animal}.png`;
+        // fallback: try removing spaces if file not found
+        img.onerror = function(){
+          const alt = `images/${animal.replace(/\s+/g,'')}.png`;
+          if(this.src.indexOf(alt)===-1) this.src = alt;
+        };
         reelDiv.appendChild(img);
       }
     }
+    // set starting top and store cycle height (based on actual images)
     reelDiv.style.top = "0px";
+    const imgs = reelDiv.querySelectorAll('img');
+    const cycleHeight = imgs.length * 100; // each image 100px tall
+    reelDiv.dataset.cycleHeight = cycleHeight;
   }
 }
 
@@ -221,7 +388,7 @@ function fireConfetti() {
   spread: 460,
   ticks: 50,
   gravity: -1,
-  decay: 0.50,
+  decay: 0.94,
   startVelocity: 40,
     colors: ['#CC232A', '#FFD84B', '#F2888B', '#A3262A', '#CC9902', '#00A36C', '#F5AC27']
   };
@@ -264,41 +431,102 @@ function fireConfetti() {
   setTimeout(shoot, 200);
 }
 
+// Collapse the three reel UI into a single photo slot
+function collapseToSingleSlot(animal){
+  const reelsDiv = document.getElementById("reels");
+  // fade out current reels
+  reelsDiv.style.opacity = "0";
+  setTimeout(()=>{
+    // build DOM so we can add image fallback handlers
+    reelsDiv.innerHTML = "";
+    const container = document.createElement('div');
+    container.className = 'reel-container single';
+    const img = document.createElement('img');
+    img.className = 'single-photo';
+    img.src = `images/${animal}.png`;
+    img.onerror = function(){
+      const alt = `images/${animal.replace(/\s+/g,'')}.png`;
+      if(this.src.indexOf(alt)===-1) this.src = alt;
+    };
+    const overlay = document.createElement('img');
+    overlay.className = 'overlay';
+    overlay.src = 'images/overlay.png';
+    container.appendChild(img);
+    container.appendChild(overlay);
+    reelsDiv.appendChild(container);
+    // fade back in
+    reelsDiv.style.opacity = "1";
+  },320);
+}
+
+// Keep original reels HTML so we can restore after collapsing
+let originalReelsHTML = null;
+
 
 // ------------------ SPIN ------------------
 function startSpin(){
   fireConfetti(); // fire confetti on button press
-  
+  // If reels were collapsed into a single slot, restore the original reels
+  const reelsDiv = document.getElementById("reels");
+  if(!document.getElementById("reel1") && originalReelsHTML){
+    reelsDiv.innerHTML = originalReelsHTML;
+    initReels();
+  }
+
   const {animal, element, year} = getUserZodiacFromDropdown();
+  // hide previous details when starting a new spin
+  const detailsDiv = document.getElementById("details");
+  detailsDiv.classList.remove("show");
   const reels = [document.getElementById("reel1"), document.getElementById("reel2"), document.getElementById("reel3")];
   const targetIndex = animals.indexOf(animal);
-  const spinDurations = [2000,2500,3000];
+  // Spin durations (ms) — lowered for quicker spins
+  const spinDurations = [2000,3000,4000];
   
   reels.forEach((reel,i)=>{
     const startTime = Date.now();
+    // smooth spin: larger steps and slightly faster tick for quicker motion
+    const step = 12; // pixels per tick (was 6)
+    const tickMs = 14; // ms per tick (was 16)
+    // ensure no transition while ticking for smooth movement
+    reel.style.transition = 'none';
     const interval = setInterval(()=>{
-      let currentTop = parseInt(reel.style.top)||0;
-      currentTop -= 100;
-      if(Math.abs(currentTop)>=12*100) currentTop = 0;
-      reel.style.transition = "top 0.08s linear";
-      reel.style.top = currentTop+"px";
-      
-      if(Date.now()-startTime>=spinDurations[i]){
+      let currentTop = parseFloat(reel.style.top)||0;
+      currentTop -= step;
+      // wrap when we've scrolled past one full cycle (12 items * 100px)
+      if(Math.abs(currentTop) >= 12*100) currentTop += 12*100;
+      reel.style.top = currentTop + 'px';
+
+      if(Date.now()-startTime >= spinDurations[i]){
         clearInterval(interval);
-        reel.style.transition = "top 0.5s ease-out";
-        reel.style.top = -(targetIndex*100)+"px";
-        
+        // final settle with transition (shorter)
+        reel.style.transition = 'top 0.45s ease-out';
+        // set final position to the target animal index
+        const finalTop = -(targetIndex * 100);
+        reel.style.top = finalTop + 'px';
+
         if(i===2){
-          document.getElementById("details").innerText = generateZodiacText(animal, element, year);
+          const detailsDiv = document.getElementById("details");
+          // Wait for the reel's final transition to finish before showing details and collapsing
+          const onSettled = function(e){
+            if(e.propertyName && e.propertyName !== 'top') return;
+            reel.removeEventListener('transitionend', onSettled);
+            detailsDiv.innerText = generateZodiacText(animal, element, year);
+            detailsDiv.classList.add('show');
+            void detailsDiv.offsetWidth; // Trigger reflow to restart animation
+            setTimeout(()=> collapseToSingleSlot(animal), 200);
+          };
+          reel.addEventListener('transitionend', onSettled);
         }
       }
-    },80);
+    }, tickMs);
   });
 }
 
 // ------------------ INIT ------------------
 initBirthdayDropdowns();
 initReels();
+// capture the full reels HTML after initial population so we can restore it later
+originalReelsHTML = document.getElementById("reels").innerHTML;
 </script>
 
 </body>
