@@ -147,12 +147,20 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
 .tabs-section [type="radio"]#tab2:checked ~ .tabs-content #story,
 .tabs-section [type="radio"]#tab3:checked ~ .tabs-content #famous { display: block; }
 
-/* ---------------- TABS CONTENT FIX ---------------- */
+/* ---------------- TABS CONTENT ---------------- */
 .tabs-content {
-  border-top: 2.5px solid #000;
+  position: relative;
+  border: 2.5px solid #000;
+  border-radius: 5px;
+  background: #fff;
+  color: #000000;
+  padding: 15px;
+  margin-top: 0px;
+  min-height: 200px;
+  overflow: auto;
+  width: 100%;       /* auto-fit width */
+  max-width: 100%;   /* prevent overflow */
   box-sizing: border-box;
-  max-width: 100%;
-  overflow-x: hidden;
 }
 
 /* ---------------- SCROLLBAR ---------------- */
