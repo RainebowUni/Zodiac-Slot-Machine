@@ -12,10 +12,9 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
 <style>
-/* ---------------- BODY & GENERAL ---------------- */
 body {
   text-align: center;
-font-family: "Diphylleia", serif;
+  font-family: "Diphylleia", serif;
   background: #ffe6e9;
   color: #fff;
   margin: 0;
@@ -35,10 +34,31 @@ select {
   margin-top: 20px;
 }
 
+/* ---------------- WRAPPER WITH LANTERNS ---------------- */
+.lantern-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.lantern-wrapper .lantern {
+  width: 5em;
+  height: 8.5em;
+}
+
+/* The dropdown + button column */
+.dropdown-button-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
 /* ---------------- SPIN BUTTON ---------------- */
 #spinButton {
   position: relative;
-font-family: "Diphylleia", serif;
+  font-family: "Diphylleia", serif;
   font-weight: 600;
   color: #382b22;
   text-transform: uppercase;
@@ -103,11 +123,7 @@ font-family: "Diphylleia", serif;
 
 /* ---------------- REELS ---------------- */
 #reels { display:flex; justify-content:center; margin-top:40px; transition:opacity 300ms ease; }
-.reel-container {
-  width:100px; height:100px; overflow:hidden; background:#fff; border:4px solid #fff;
-  margin:0 10px; position:relative; border-radius:8px; box-shadow:0 0 10px #fff;
-  animation:glow 2s infinite alternate;
-}
+.reel-container { width:100px; height:100px; overflow:hidden; background:#fff; border:4px solid #fff; margin:0 10px; position:relative; border-radius:8px; box-shadow:0 0 10px #fff; animation:glow 2s infinite alternate; }
 @keyframes glow { 0%{box-shadow:0 0 9px #fff;} 50%{box-shadow:0 0 15px #be3838,0 0 25px #af2424;} 100%{box-shadow:0 0 9px #ffe6e9;} }
 
 .reel { display:flex; flex-direction:column; position:absolute; top:0; }
@@ -119,12 +135,7 @@ font-family: "Diphylleia", serif;
 .overlay { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:10; object-fit:cover; }
 
 /* ---------------- ZODIAC DETAILS ---------------- */
-#details {
-  margin:30px auto 0; font-family: "Diphylleia", serif; font-size:18px;
-  color:#382b22; max-width:350px; text-align:left; white-space:pre-wrap;
-  background:#fff; padding:20px; border:2px solid #be3838; display:none;
-  max-height:220px; overflow:auto; box-sizing:border-box; animation:popUp 0.6s ease-out;
-}
+#details { margin:30px auto 0; font-family: "Diphylleia", serif; font-size:18px; color:#382b22; max-width:350px; text-align:left; white-space:pre-wrap; background:#fff; padding:20px; border:2px solid #be3838; display:none; max-height:220px; overflow:auto; box-sizing:border-box; animation:popUp 0.6s ease-out; }
 #details.show { display:block; }
 @keyframes popUp { 0%{opacity:0;transform:scale(0.5);} 100%{opacity:1;transform:scale(1);} }
 #details::-webkit-scrollbar{width:11px;} #details::-webkit-scrollbar-track{background:#fff;border-radius:9px;}
@@ -134,15 +145,25 @@ font-family: "Diphylleia", serif;
 
 <body>
 <img id="title-img" src="images/title.apng" alt="Chinese Zodiac Slot Machine">
-<br><br>
+<br>
 
-<select id="month"></select>
-<select id="day"></select>
-<select id="year"></select>
-<br><br>
+<!-- Lanterns wrap the whole dropdown + button -->
+<div class="lantern-wrapper">
+  <img src="images/lantern.png" class="lantern" alt="Lantern">
+  
+  <div class="dropdown-button-column">
+    <div class="dropdowns">
+      <select id="month"></select>
+      <select id="day"></select>
+      <select id="year"></select>
+    </div>
+    <button id="spinButton" onclick="startSpin()"><span class="gold">Get My Zodiac!</span></button>
+  </div>
 
-<button id="spinButton" onclick="startSpin()"><span class="gold">Get My Zodiac!</span></button>
-<br><br>
+  <img src="images/lantern.png" class="lantern" alt="Lantern">
+</div>
+
+<br>
 
 <div id="reels">
   <div class="reel-container"><div class="reel" id="reel1"></div><img src="images/overlay.png" class="overlay"></div>
