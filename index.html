@@ -100,7 +100,7 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
 /* ---------------- RADIO BUTTON TABS ---------------- */
 .tabs-wrapper { display: none; margin-top: 25px; }
 .tabs-wrapper.active { display: block; }
-.wrapper { width: 90%; max-width: 450px; margin: 30px auto; }
+.wrapper { width: 95%; max-width: 450px; margin: 40px auto; }
 .tabs-section [type="radio"] { display: none; }
 .tabs-section label {
   display: inline-block;
@@ -111,7 +111,7 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   margin-right: 4px;
   cursor: pointer;
   font-weight: bold;
-  border-radius: 0.5em 0.5em 0.5em 0.5em;
+  border-radius: 0.5em;
   position: relative;
   border: 1.5px solid #000;
 }
@@ -119,13 +119,13 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
 .tabs-section label:after {
   content: '';
   position: absolute;
-  top: 1px; left: 0;
+  top: 0; left: 0;
   width: 100%; height: 100%;
   border-radius: 0.4em 0.4em 0 0;
   background: #be3838;
   border: 1.5px solid #000;
   border-bottom: none;
-  transform: perspective(100px) rotateX(25deg);
+  transform: perspective(120px) rotateX(18deg); /* fixed 3D effect */
   z-index: 1;
 }
 .tabs-section [type="radio"]:checked + label { background: #be3838; }
@@ -135,32 +135,16 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   position: relative;
   border: 2.5px solid #000;
   border-radius: 5px;
-  background: #fff;
-  color: #000000;
+  background: rgba(255, 255, 255, 0.85); /* semi-transparent */
+  color: #000;
   padding: 15px;
-  margin-top: 0px;
   min-height: 200px;
   overflow: auto;
-}
-.tabs-content section { display: none; }
-.tabs-section [type="radio"]#tab1:checked ~ .tabs-content #general,
-.tabs-section [type="radio"]#tab2:checked ~ .tabs-content #story,
-.tabs-section [type="radio"]#tab3:checked ~ .tabs-content #famous { display: block; }
-
-/* ---------------- TABS CONTENT ---------------- */
-.tabs-content {
-  position: relative;
-  border: 2.5px solid #000;
-  border-radius: 5px;
-  background: #fff;
-  color: #000000;
-  padding: 15px;
-  margin-top: 0px;
-  min-height: 200px;
-  overflow: auto;
-  width: 100%;       /* auto-fit width */
-  max-width: 100%;   /* prevent overflow */
+  width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
+  margin-top: px; /* allows tabs to overlay */
+  backdrop-filter: blur(3px); /* optional frosted effect */
 }
 
 /* ---------------- SCROLLBAR ---------------- */
@@ -170,11 +154,7 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
 .tabs-content{scrollbar-width:thin;scrollbar-color:#ffe6e9 #fff;}
 
 /* ---------------- ADDED ---------------- */
-.dropdown-button-column button {
-  margin-top: 15px; /* adds space between dropdowns and button */
-}
-
-.tabs-wrapper .wrapper { width: 95%; max-width: 450px; margin: 30px auto; } /* auto-fit tabs for mobile */
+.dropdown-button-column button { margin-top: 25px; }
 </style>
 </head>
 <body>
