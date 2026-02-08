@@ -103,8 +103,8 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
 .wrapper { width: 95%; max-width: 450px; margin: 40px auto; }
 .tabs-section [type="radio"] { display: none; }
 .tabs-section label {
-  display: inline-block;
-  padding: 0.5em 1em;   /* auto size based on text */
+  display: inline-block;   /* keep inline for natural sizing */
+  padding: 0.5em 1em;      /* spacing around text */
   background: #972525;
   color: #ffe6e9;
   margin-right: 4px;
@@ -113,8 +113,11 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   border-radius: 0.5em;
   position: relative;
   border: 1.5px solid #000;
-  white-space: nowrap;   /* prevent text wrap */
+  white-space: nowrap;     /* don't wrap text */
+  width: auto;             /* auto width */
+  min-width: 0;            /* remove any min-width */
 }
+
 .tabs-section label span { position: relative; z-index: 3; }
 .tabs-section label:after {
   content: '';
