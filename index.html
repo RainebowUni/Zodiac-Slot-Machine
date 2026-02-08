@@ -59,7 +59,7 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
 #spinButton:hover { background: #972525; transform: translate(0,0.25em); }
 #spinButton:hover::before { box-shadow:0 0 0 2px #000,0 0.5em 0 0 #ffe6e9; transform:translate3d(0,0.5em,-1em);}
 #spinButton:active { background:#972525; transform: translate(0em,0.75em); }
-#spinButton:active::before { box-shadow:0 0 0 2px #000,0 0 #ffe6e9; transform: translate3d(0,0,-1em);}
+#spinButton:active::before { box-shadow:0 0 0 2px #000,0 0 #ffe6e9; transform: translate3d(0,0,-1em); }
 #spinButton .gold {
   display: inline-block;
   position: relative;
@@ -115,10 +115,7 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   position: relative;
   border: 1.5px solid #000;
 }
-.tabs-section label span {
-  position: relative;
-  z-index: 3;
-}
+.tabs-section label span { position: relative; z-index: 3; }
 .tabs-section label:after {
   content: '';
   position: absolute;
@@ -131,17 +128,9 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   transform: perspective(100px) rotateX(25deg);
   z-index: 1;
 }
-.tabs-section [type="radio"]:checked + label {
-  background: #be3838;
-}
-.tabs-section [type="radio"]:checked + label:after {
-  background: #fff;
-  z-index: 2;
-}
-.tabs-section [type="radio"]:checked + label span {
-  color: #be3838;
-  z-index: 3;
-}
+.tabs-section [type="radio"]:checked + label { background: #be3838; }
+.tabs-section [type="radio"]:checked + label:after { background: #fff; z-index: 2; }
+.tabs-section [type="radio"]:checked + label span { color: #be3838; z-index: 3; }
 .tabs-content {
   position: relative;
   border: 2.5px solid #000;
@@ -153,21 +142,17 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   min-height: 200px;
   overflow: auto;
 }
-.tabs-content section {
-  display: none;
-}
+.tabs-content section { display: none; }
 .tabs-section [type="radio"]#tab1:checked ~ .tabs-content #general,
 .tabs-section [type="radio"]#tab2:checked ~ .tabs-content #story,
-.tabs-section [type="radio"]#tab3:checked ~ .tabs-content #famous {
-  display: block;
-}
+.tabs-section [type="radio"]#tab3:checked ~ .tabs-content #famous { display: block; }
 
 /* ---------------- TABS CONTENT FIX ---------------- */
 .tabs-content {
-  border-top: 2.5px solid #000; /* add top border */
-  box-sizing: border-box;       /* ensure padding doesn't break width */
-  max-width: 100%;              /* prevent overflow on iPhone */
-  overflow-x: hidden;           /* no horizontal scroll */
+  border-top: 2.5px solid #000;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* ---------------- SCROLLBAR ---------------- */
@@ -175,6 +160,20 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
 .tabs-content::-webkit-scrollbar-track{background:#fff;border-radius:9px;}
 .tabs-content::-webkit-scrollbar-thumb{background:#ffe6e9;border-radius:8px;border:2px solid #fff;}
 .tabs-content{scrollbar-width:thin;scrollbar-color:#ffe6e9 #fff;}
+
+/* ---------------- MOBILE RESPONSIVE ---------------- */
+.dropdowns select,
+#spinButton {
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+}
+.dropdown-button-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* space between dropdowns and button */
+  align-items: center;
+}
 </style>
 </head>
 <body>
