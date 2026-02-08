@@ -55,6 +55,28 @@ select {
   gap: 1em;
 }
 
+/* ---------------- LANTERN SWAY ---------------- */
+.lantern {
+  transform-origin: top center;
+  animation: sway-left 5.5s linear infinite;
+}
+
+.lantern-wrapper .lantern:last-child {
+  animation-name: sway-right;
+}
+
+@keyframes sway-left {
+  0%   { transform: rotate(-5deg); }
+  50%  { transform: rotate(5deg); }
+  100% { transform: rotate(-5deg); }
+}
+
+@keyframes sway-right {
+  0%   { transform: rotate(5deg); }
+  50%  { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
 /* ---------------- SPIN BUTTON ---------------- */
 #spinButton {
   position: relative;
