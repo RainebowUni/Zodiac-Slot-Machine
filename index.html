@@ -106,7 +106,7 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   display: inline-block;
   min-width: 90px;
   padding: 0.5em 1em;
-  background: #be3838;
+  background: #972525;
   color: #fff;
   margin-right: 4px;
   cursor: pointer;
@@ -125,21 +125,21 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   top: 1px; left: 0;
   width: 100%; height: 100%;
   border-radius: 0.4em 0.4em 0 0;
-  background: #e55353;
+  background: #be3838;
   border: 1.5px solid #000;
   border-bottom: none;
   transform: perspective(100px) rotateX(25deg);
   z-index: 1;
 }
 .tabs-section [type="radio"]:checked + label {
-  background: #972525;
+  background: #be3838;
 }
 .tabs-section [type="radio"]:checked + label:after {
   background: #fff;
   z-index: 2;
 }
 .tabs-section [type="radio"]:checked + label span {
-  color: #972525;
+  color: #be3838;
   z-index: 3;
 }
 .tabs-content {
@@ -153,7 +153,6 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   min-height: 200px;
   overflow: auto;
 }
-
 .tabs-content section {
   display: none;
 }
@@ -162,6 +161,15 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
 .tabs-section [type="radio"]#tab3:checked ~ .tabs-content #famous {
   display: block;
 }
+
+/* ---------------- TABS CONTENT FIX ---------------- */
+.tabs-content {
+  border-top: 2.5px solid #000; /* add top border */
+  box-sizing: border-box;       /* ensure padding doesn't break width */
+  max-width: 100%;              /* prevent overflow on iPhone */
+  overflow-x: hidden;           /* no horizontal scroll */
+}
+
 /* ---------------- SCROLLBAR ---------------- */
 .tabs-content::-webkit-scrollbar{width:11px;}
 .tabs-content::-webkit-scrollbar-track{background:#fff;border-radius:9px;}
@@ -270,7 +278,7 @@ function getUserZodiacFromDropdown(){
 }
 
 function generateZodiacText(animal, element, year){
-  let text=`Your Zodiac: <strong>${element} ${animal} ${chineseSymbol[animal]} (${year})</strong><hr>Other years by element:<br>`;
+let text = `Your Zodiac: ${element} ${animal} ${chineseSymbol[animal]} (${year})<hr style="border:none; height:2px; background-color:#972525; margin:10px 0;">Other years by element:<br>`;
   const years = zodiacYears[animal];
   if(years) elements.forEach(el => text+=`${el} ${elementChinese[el]}: ${years[el].join(', ')}<br>`);
   document.getElementById("famous").innerHTML = famousPeople[animal].join("<br>");
