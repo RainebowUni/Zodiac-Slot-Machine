@@ -7,64 +7,209 @@
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Rubik:700&family=Allura&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Diphylleia&display=swap" rel="stylesheet">
 
 <!-- Canvas Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
 <style>
-/* ---------------- GENERAL ---------------- */
+/* RESET AND BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
 body {
   text-align: center;
   font-family: "Diphylleia", serif;
   background: #ffe6e9;
   color: #fff;
-  margin: 0;
-  padding: 0;
+  min-height: 100vh;
+  padding: 10px;
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
 }
-select { padding: 10px; font-size: 16px; margin: 5px; }
-#title-img { width: 90vw; max-width: 600px; height: auto; margin-top: 20px; }
 
-/* ---------------- LANTERNS ---------------- */
-.lantern-wrapper {
+/* MAIN CONTAINER */
+.main-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+/* TITLE */
+#title-img {
+  display: block;
+  width: min(95%, 600px);
+  height: auto;
+  margin: 0 auto 20px auto;
+  max-width: 100%;
+}
+
+/* LANTERNS CONTAINER - FIXED POSITION */
+.lanterns-container {
+  width: 100%;
+  position: relative;
+  margin: 20px 0 30px 0;
+  min-height: 180px;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 1vw;
-}.lantern-wrapper .lantern { width: 5em; height: 8.5em; transform-origin: top center; animation: sway-left 5.5s linear infinite; }
-.lantern-wrapper .lantern:last-child { animation-name: sway-right; }
-@keyframes sway-left { 0%{transform:rotate(-5deg);}50%{transform:rotate(5deg);}100%{transform:rotate(-5deg);} }
-@keyframes sway-right { 0%{transform:rotate(5deg);}50%{transform:rotate(-5deg);}100%{transform:rotate(5deg);} }
+}
 
-/* ---------------- SPIN BUTTON ---------------- */
+.lanterns-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+/* LANTERNS */
+.lantern {
+  width: 80px;
+  height: 136px;
+  transform-origin: top center;
+  animation: sway-left 5.5s ease-in-out infinite;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.lantern-right {
+  animation: sway-right 5.5s ease-in-out infinite;
+}
+
+@keyframes sway-left { 
+  0% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+  100% { transform: rotate(-5deg); } 
+}
+
+@keyframes sway-right { 
+  0% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); } 
+}
+
+/* CONTENT BOX (DROPDOWNS AND BUTTON) */
+.content-box {
+  min-width: 300px;
+  max-width: 400px;
+  position: relative;
+  z-index: 2;
+}
+
+.dropdown-button-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.dropdowns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* DROPDOWNS */
+select {
+  padding: 12px 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  background: white;
+  color: #333;
+  min-width: 100px;
+  cursor: pointer;
+  font-family: "Diphylleia", serif;
+  transition: all 0.3s ease;
+  flex: 1;
+  max-width: 120px;
+  box-shadow: none !important;
+}
+
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(190, 56, 56, 0.3) !important;
+}
+
+/* SPIN BUTTON */
 #spinButton {
   position: relative;
   font-family: "Diphylleia", serif;
   font-weight: 600;
   color: #382b22;
   text-transform: uppercase;
-  padding: 1.25em 2em;
+  padding: 18px 35px;
   background: #be3838;
   border: 2px solid #000;
-  border-radius: 0.75em;
+  border-radius: 12px;
   cursor: pointer;
-  outline: none;
+  outline: 2px solid transparent;
   transform-style: preserve-3d;
-  transition: transform 150ms cubic-bezier(0,0,0.58,1), background 150ms cubic-bezier(0,0,0.58,1);
+  transition: all 0.2s ease;
+  font-size: 1.2rem;
+  width: 100%;
+  max-width: 300px;
+  display: block;
+  margin: 0 auto;
+  box-shadow: none !important;
 }
+
 #spinButton::before {
   content: '';
-  position: absolute; width: 100%; height: 100%; top: 0; left: 0;
-  background: #972525; border-radius: inherit;
-  box-shadow: 0 0 0 2px #000, 0 0.625em 0 0 #ffe6e9;
-  transform: translate3d(0,0.75em,-1em);
-  transition: transform 150ms cubic-bezier(0,0,0.58,1), box-shadow 150ms cubic-bezier(0,0,0.58,1);
+  position: absolute; 
+  width: 100%; 
+  height: 100%; 
+  top: 0; 
+  left: 0;
+  background: #972525; 
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+  transform: translate3d(0, 8px, -8px);
+  transition: all 0.2s ease;
   z-index: -1;
 }
-#spinButton:hover { background: #972525; transform: translate(0,0.25em); }
-#spinButton:hover::before { box-shadow:0 0 0 2px #000,0 0.5em 0 0 #ffe6e9; transform:translate3d(0,0.5em,-1em);}
-#spinButton:active { background:#972525; transform: translate(0em,0.75em); }
-#spinButton:active::before { box-shadow:0 0 0 2px #000,0 0 #ffe6e9; transform: translate3d(0,0,-1em); }
+
+#spinButton:hover { 
+  background: #972525; 
+  transform: translateY(4px); 
+}
+
+#spinButton:hover::before { 
+  transform: translate3d(0, 4px, -8px);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+
+#spinButton:active { 
+  background: #972525; 
+  transform: translateY(8px); 
+}
+
+#spinButton:active::before { 
+  transform: translate3d(0, 0, -8px);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+
 #spinButton .gold {
   display: inline-block;
   position: relative;
@@ -73,61 +218,171 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-image: linear-gradient(90deg, #daa520 0%, #e8b923 25%, #ffe550 50%, #ffd700 75%, #b8860b 100%);
+  background-image: linear-gradient(90deg, #daa520 0%, #e8b923 25%, #ffde22 50%, #ffd700 75%, #b8860b 100%);
   background-size: 200% 100%;
   animation: goldShift 3s linear infinite;
   letter-spacing: 1px;
   z-index: 1;
+  font-size: 1.3rem;
 }
-#spinButton .gold::before {
-  content:"";
-  position:absolute; inset:0;
-  background-image: radial-gradient(rgba(255,255,255,0.9) 1px, rgba(255,255,255,0) 2px);
-  background-size: 6px 6px;
-  opacity:0.06;
-  animation: twinkle 1.5s infinite linear;
-  pointer-events:none;
-  z-index:0;
+
+@keyframes goldShift { 
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; } 
 }
-@keyframes goldShift { 0%{background-position:0% 50%;}100%{background-position:200% 50%;} }
-@keyframes twinkle {0%{opacity:0.04;transform:translateY(0);}50%{opacity:0.12;transform:translateY(-1px);}100%{opacity:0.04;transform:translateY(0);}}
 
-/* ---------------- REELS ---------------- */
-#reels { display:flex; justify-content:center; margin-top:40px; transition:opacity 300ms ease; }
-.reel-container { width:100px; height:100px; overflow:hidden; background:#fff; border:4px solid #fff; margin:0 10px; position:relative; border-radius:8px; box-shadow:0 0 10px #fff; animation:glow 2s infinite alternate; }
-@keyframes glow {0%{box-shadow:0 0 9px #fff;}50%{box-shadow:0 0 15px #be3838,0 0 25px #af2424;}100%{box-shadow:0 0 9px #ffe6e9;} }
-.reel { display:flex; flex-direction:column; position:absolute; top:0; }
-.reel img { width:100px; height:100px; object-fit:contain; }
-.reel-container.single { width:220px; height:220px; margin:0 auto; }
-.reel-container.single img.single-photo { width:100%; height:100%; object-fit:cover; border-radius:8px; }
-.overlay { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:10; object-fit:cover; }
+/* REELS SECTION */
+.reels-section {
+  margin: 40px auto;
+  width: 100%;
+  position: relative;
+}
 
-/* ---------------- RADIO BUTTON TABS ---------------- */
-.tabs-wrapper { display: none; margin-top: 25px; }
-.tabs-wrapper.active { display: block; }
-.wrapper { width: 95%; max-width: 450px; margin: 40px auto; }
-.tabs-section [type="radio"] { display: none; }
+#reels {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 300ms ease;
+  gap: 20px;
+  padding: 0 20px;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.reel-container {
+  width: 130px;
+  height: 130px;
+  overflow: hidden;
+  background: #fff;
+  border: 4px solid #fff;
+  position: relative;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #fff;
+  animation: glow 2s infinite alternate;
+  flex-shrink: 0;
+}
+
+@keyframes glow {
+  0% { 
+    box-shadow: 0 0 10px #fff, 
+                0 0 5px rgba(190, 56, 56, 0.3); 
+  }
+  50% { 
+    box-shadow: 0 0 25px #be3838, 
+                0 0 40px rgba(175, 36, 36, 0.8); 
+  }
+  100% { 
+    box-shadow: 0 0 10px #fff, 
+                0 0 5px rgba(254, 230, 233, 0.3); 
+  }
+}
+
+.reel {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.reel img {
+  width: 100%;
+  height: 130px;
+  object-fit: contain;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  object-fit: cover;
+}
+
+/* SINGLE REEL MODE */
+.reel-container.single {
+  width: 280px;
+  height: 280px;
+  margin: 0 auto;
+}
+
+.reel-container.single img.single-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+/* TABS SECTION - BACK TO ORIGINAL WORKING VERSION */
+.tabs-wrapper {
+  display: none;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.tabs-wrapper.active {
+  display: block;
+}
+
+.wrapper {
+  width: min(95%, 550px);
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.tabs-section [type="radio"] {
+  display: none;
+}
+
+/* TAB LABELS */
+.tabs-section {
+  position: relative;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 5px;
+  -webkit-overflow-scrolling: auto;
+}
+
 .tabs-section label {
-  display: inline-block;   
-  padding: 0.5em 1em;      
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
   background: #972525;
   color: #ffe6e9;
-  margin-right: 4px;
   cursor: pointer;
   font-weight: bold;
   border-radius: 0.5em;
   position: relative;
   border: 1.5px solid #000;
-  white-space: nowrap;     
-  width: auto;             
-  min-width: 0;            
+  white-space: nowrap;
+  font-size: 1rem;
+  margin-right: 4px;
+  z-index: 2;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  flex-shrink: 0;
 }
-.tabs-section label span { position: relative; z-index: 3; }
-.tabs-section label:after {
+
+.tabs-section label span {
+  position: relative;
+  z-index: 3;
+}
+
+/* 3D EFFECT - ORIGINAL STYLE */
+.tabs-section label::after {
   content: '';
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   border-radius: 0.4em 0.4em 0 0;
   background: #be3838;
   border: 1.5px solid #000;
@@ -135,230 +390,1047 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   transform: perspective(120px) rotateX(18deg);
   z-index: 1;
 }
-.tabs-section [type="radio"]:checked + label { background: #be3838; }
-.tabs-section [type="radio"]:checked + label:after { background: #ffffff; z-index: 2; }
-.tabs-section [type="radio"]:checked + label span { color: #be3838; z-index: 3; }
 
+.tabs-section [type="radio"]:checked + label {
+  background: #be3838;
+}
+
+.tabs-section [type="radio"]:checked + label::after {
+  background: #ffffff;
+  z-index: 2;
+}
+
+.tabs-section [type="radio"]:checked + label span {
+  color: #be3838;
+  z-index: 3;
+}
+
+/* FIXED CONTENT BOX - SEPARATE FROM TABS */
 .tabs-content {
   position: relative;
   border: 2.5px solid #000;
   border-radius: 5px;
   background: #ffffff;
   color: #000;
-  padding: 15px;
-  min-height: 200px;
-  overflow: auto;
+  padding: 25px;
+  min-height: 250px;
+  max-height: 400px;
+  overflow-y: auto;
   width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   margin-top: -4px;
+  z-index: 1;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  /* Ensure text stays within box */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
-/* ---------------- TAB SWITCHING FIX ---------------- */
-.tabs-content section { display: none; }
+.tabs-content section {
+  display: none;
+  /* Ensure content fits */
+  width: 95%;
+  max-width: 95%;
+  box-sizing: content-box;
+}
+
+/* Updated for 4 tabs - Changed tab2 to History */
 #tab1:checked ~ .tabs-content #general,
 #tab2:checked ~ .tabs-content #story,
-#tab3:checked ~ .tabs-content #famous {
+#tab3:checked ~ .tabs-content #elements,
+#tab4:checked ~ .tabs-content #famous {
   display: block;
 }
 
-/* ---------------- SCROLLBAR ---------------- */
-.tabs-content::-webkit-scrollbar{width:11px;}
-.tabs-content::-webkit-scrollbar-track{background:#fff;border-radius:9px;}
-.tabs-content::-webkit-scrollbar-thumb{background:#ffe6e9;border-radius:8px;border:2px solid #fff;}
-.tabs-content{scrollbar-width:thin;scrollbar-color:#ffe6e9 #fff;}
+/* FIX CONTENT STYLES TO FIT IN BOX */
+.tabs-content div,
+.tabs-content p,
+.tabs-content strong,
+.tabs-content em {
+  max-width: 95%;
+  box-sizing: content-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
 
-/* ---------------- ADDED ---------------- */
-.dropdown-button-column button { margin-top: 25px; }
+.tabs-content hr {
+  max-width: 95%;
+  box-sizing: content-box;
+}
+
+/* Ensure famous people list fits */
+.tabs-content div[style*="font-size: 0.9em"] {
+  font-size: 0.85em !important;
+  line-height: 1.3 !important;
+}
+
+/* SCROLLBAR */
+.tabs-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.tabs-content::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 5px;
+}
+
+.tabs-content::-webkit-scrollbar-thumb {
+  background: #ffe6e9;
+  border-radius: 5px;
+  border: 3px solid #fff;
+}
+
+.tabs-content {
+  scrollbar-width: thin;
+  scrollbar-color: #ffe6e9 #fff;
+}
+
+/* RESPONSIVE DESIGN - TABLETS */
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+  
+  .lanterns-container {
+    min-height: 150px;
+  }
+  
+  .lanterns-inner {
+    gap: 10px;
+    padding: 0 15px;
+  }
+  
+  .lantern {
+    width: 60px;
+    height: 102px;
+  }
+  
+  .content-box {
+    min-width: 280px;
+    padding: 15px;
+  }
+  
+  select {
+    min-width: 85px;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    max-width: 100px;
+  }
+  
+  #spinButton {
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    max-width: 280px;
+  }
+  
+  #spinButton .gold {
+    font-size: 1.2rem;
+  }
+  
+  .reel-container {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .reel img {
+    height: 110px;
+  }
+  
+  .reel-container.single {
+    width: 220px;
+    height: 220px;
+  }
+  
+  .tabs-section label {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    min-width: 100px;
+    margin-right: 2px;
+  }
+  
+  /* Adjust tab content for smaller screens */
+  .tabs-content {
+    padding: 20px;
+    font-size: 0.95em;
+  }
+  
+  .tabs-content div[style*="font-size: 0.9em"] {
+    font-size: 0.8em !important;
+    line-height: 1.25 !important;
+  }
+}
+
+/* RESPONSIVE DESIGN - PHONES */
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+  
+  body {
+    padding: 5px;
+  }
+  
+  .lanterns-container {
+    min-height: 120px;
+    margin: 15px 0 20px 0;
+  }
+  
+  .lanterns-inner {
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 0 10px;
+  }
+  
+  .lantern {
+    width: 50px;
+    height: 85px;
+    order: 1;
+  }
+  
+  .lantern-left {
+    order: 1;
+  }
+  
+  .lantern-right {
+    order: 3;
+  }
+  
+  .content-box {
+    order: 2;
+    width: 100%;
+    max-width: 320px;
+    padding: 15px;
+  }
+  
+  .dropdowns {
+    flex-direction: row;
+    gap: 8px;
+  }
+  
+  select {
+    flex: 1;
+    min-width: 0;
+    padding: 10px;
+    font-size: 0.9rem;
+    max-width: none;
+  }
+  
+  #spinButton {
+    padding: 14px 22px;
+    font-size: 1rem;
+    max-width: 260px;
+  }
+  
+  #spinButton .gold {
+    font-size: 1.1rem;
+  }
+  
+  #reels {
+    gap: 15px;
+    margin: 30px auto;
+  }
+  
+  .reel-container {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .reel img {
+    height: 90px;
+  }
+  
+  .reel-container.single {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .wrapper {
+    width: 100%;
+    padding: 0 10px;
+  }
+  
+  .tabs-section label {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    min-width: 80px;
+    margin-right: 1px;
+  }
+  
+  .tabs-content {
+    padding: 15px;
+    min-height: 200px;
+    max-height: 350px;
+    font-size: 0.9em;
+  }
+  
+  /* Adjust content for mobile */
+  .tabs-content div[style*="font-size: 1.1em"] {
+    font-size: 1em !important;
+  }
+  
+  .tabs-content div[style*="font-size: 0.95em"] {
+    font-size: 0.85em !important;
+  }
+  
+  .tabs-content div[style*="font-size: 0.9em"] {
+    font-size: 0.75em !important;
+    line-height: 1.2 !important;
+  }
+}
+
+/* RESPONSIVE DESIGN - SMALL PHONES */
+@media screen and (max-width: 360px) {
+  .lantern {
+    width: 45px;
+    height: 76px;
+  }
+  
+  .content-box {
+    padding: 12px;
+  }
+  
+  select {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+  
+  #spinButton {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    max-width: 240px;
+  }
+  
+  .reel-container {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .reel img {
+    height: 80px;
+  }
+  
+  .reel-container.single {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .tabs-section label {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    min-width: 70px;
+  }
+  
+  .tabs-content {
+    padding: 12px;
+    font-size: 0.85em;
+  }
+  
+  .tabs-content div[style*="font-size: 0.9em"] {
+    font-size: 0.7em !important;
+    line-height: 1.15 !important;
+  }
+}
+
+/* LANDSCAPE MODE */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  body {
+    padding: 5px;
+  }
+  
+  #title-img {
+    max-width: 300px;
+    margin: 5px auto 10px auto;
+  }
+  
+  .lanterns-container {
+    min-height: 100px;
+    margin: 10px 0;
+  }
+  
+  .lantern {
+    width: 50px;
+    height: 85px;
+  }
+  
+  #reels {
+    margin: 20px auto;
+  }
+  
+  .reel-container {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .reel img {
+    height: 80px;
+  }
+  
+  .tabs-wrapper {
+    margin-top: 15px;
+  }
+  
+  .tabs-content {
+    min-height: 180px;
+    max-height: 250px;
+    padding: 15px;
+    font-size: 0.9em;
+  }
+}
+
+/* TOUCH DEVICE OPTIMIZATIONS */
+@media (hover: none) and (pointer: coarse) {
+  #spinButton:hover {
+    transform: none;
+  }
+  
+  #spinButton:hover::before {
+    transform: translate3d(0, 8px, -8px);
+  }
+  
+  select {
+    min-height: 48px;
+  }
+  
+  .tabs-section label {
+    min-height: 48px;
+  }
+  
+  #spinButton:active {
+    transform: translateY(8px);
+  }
+  
+  #spinButton:active::before {
+    transform: translate3d(0, 0, -8px);
+  }
+}
 </style>
 </head>
 <body>
+<div class="main-container">
 
-<img id="title-img" src="images/title.apng" alt="Chinese Zodiac Slot Machine">
-<br>
+  <img id="title-img" src="images/title.apng" alt="Chinese Zodiac Slot Machine">
 
-<div class="lantern-wrapper">
-  <img src="images/Lantern.png" class="lantern" alt="Lantern">
-  <div class="dropdown-button-column">
-    <div class="dropdowns">
-      <select id="month"></select>
-      <select id="day"></select>
-      <select id="year"></select>
-    </div>
-    <button id="spinButton" onclick="startSpin()"><span class="gold">Get My Zodiac!</span></button>
-  </div>
-  <img src="images/Lantern.png" class="lantern" alt="Lantern">
-</div>
-
-<br>
-
-<div id="reels">
-  <div class="reel-container"><div class="reel" id="reel1"></div><img src="images/overlay.png" class="overlay"></div>
-  <div class="reel-container"><div class="reel" id="reel2"></div><img src="images/overlay.png" class="overlay"></div>
-  <div class="reel-container"><div class="reel" id="reel3"></div><img src="images/overlay.png" class="overlay"></div>
-</div>
-
-<div class="tabs-wrapper">
-  <div class="wrapper">
-    <section class="tabs-section">
-      <input type="radio" name="tab" id="tab1" checked>
-      <label for="tab1"><span>General Info</span></label>
-
-      <input type="radio" name="tab" id="tab2">
-      <label for="tab2"><span>Story</span></label>
-
-      <input type="radio" name="tab" id="tab3">
-      <label for="tab3"><span>Famous People</span></label>
-
-      <div class="tabs-content">
-        <section id="general"></section>
-        <section id="story"></section>
-        <section id="famous"></section>
+  <div class="lanterns-container">
+    <div class="lanterns-inner">
+      <img src="images/Lantern.png" class="lantern lantern-left" alt="Lantern">
+      
+      <div class="content-box">
+        <div class="dropdown-button-column">
+          <div class="dropdowns">
+            <select id="month" aria-label="Birth month"></select>
+            <select id="day" aria-label="Birth day"></select>
+            <select id="year" aria-label="Birth year"></select>
+          </div>
+          <button id="spinButton" onclick="startSpin()" aria-label="Get my zodiac sign">
+            <span class="gold">Get My Zodiac!</span>
+          </button>
+        </div>
       </div>
-    </section>
+      
+      <img src="images/Lantern.png" class="lantern lantern-right" alt="Lantern">
+    </div>
   </div>
-</div>
+
+  <div class="reels-section">
+    <div id="reels">
+      <div class="reel-container">
+        <div class="reel" id="reel1"></div>
+        <img src="images/overlay.png" class="overlay" alt="Slot overlay">
+      </div>
+      <div class="reel-container">
+        <div class="reel" id="reel2"></div>
+        <img src="images/overlay.png" class="overlay" alt="Slot overlay">
+      </div>
+      <div class="reel-container">
+        <div class="reel" id="reel3"></div>
+        <img src="images/overlay.png" class="overlay" alt="Slot overlay">
+      </div>
+    </div>
+  </div>
+
+  <!-- BACK TO SIMPLE WORKING STRUCTURE -->
+  <div class="tabs-wrapper">
+    <div class="wrapper">
+      <section class="tabs-section">
+        <input type="radio" name="tab" id="tab1" checked>
+        <label for="tab1"><span>General Info</span></label>
+
+        <input type="radio" name="tab" id="tab2">
+        <label for="tab2"><span>History</span></label>
+
+        <input type="radio" name="tab" id="tab3">
+        <label for="tab3"><span>Elements</span></label>
+
+        <input type="radio" name="tab" id="tab4">
+        <label for="tab4"><span>Famous People</span></label>
+
+        <div class="tabs-content">
+          <section id="general"></section>
+          <section id="story"></section>
+          <section id="elements"></section>
+          <section id="famous"></section>
+        </div>
+      </section>
+    </div>
+  </div>
+
+</div> <!-- end .main-container -->
 
 <script>
-// ---------------- DATA ----------------
+// Initialize variables at the top
+let originalReelsHTML = null;
+let isSpinning = false;
+
+// ---------------- ACCURATE CHINESE ZODIAC DATA ----------------
 const animals = ["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"];
 const chineseSymbol = { Rat:'鼠', Ox:'牛', Tiger:'虎', Rabbit:'兔', Dragon:'龍', Snake:'蛇', Horse:'馬', Goat:'羊', Monkey:'猴', Rooster:'雞', Dog:'狗', Pig:'豬' };
 const elements = ["Wood","Fire","Earth","Metal","Water"];
 const elementChinese = { Wood:'木', Fire:'火', Earth:'土', Metal:'金', Water:'水' };
+
+// UPDATED ELEMENTS DESCRIPTIONS - YOUR ELEMENT FIRST
+const elementDescriptions = {
+  "Wood": "Wood represents growth, creativity, and flexibility. Wood signs are visionary, idealistic, and able to see the big picture.",
+  "Fire": "Fire represents passion, energy, and transformation. Fire signs are enthusiastic, dynamic, and natural leaders.",
+  "Earth": "Earth represents stability, practicality, and reliability. Earth signs are grounded, patient, and hardworking.",
+  "Metal": "Metal represents structure, determination, and strength. Metal signs are disciplined, resolute, and value integrity.",
+  "Water": "Water represents wisdom, intuition, and adaptability. Water signs are perceptive, empathetic, and deeply emotional."
+};
+
+// ADDED ZODIAC STORIES
+const zodiacStories = {
+  "Rat": "According to legend, the Rat won the race by riding on the Ox's back and jumping off at the finish line. Rats are clever, quick-witted, and resourceful.",
+  "Ox": "The Ox came in second place due to its steady, reliable nature. Oxen are hardworking, dependable, and strong.",
+  "Tiger": "The Tiger came in third, known for its courage and power. Tigers are brave, competitive, and confident.",
+  "Rabbit": "The Rabbit came in fourth by hopping across the river on stones. Rabbits are gentle, elegant, and alert.",
+  "Dragon": "The Dragon came in fifth despite being able to fly. Dragons are charismatic, intelligent, and confident.",
+  "Snake": "The Snake came in sixth, surprising the Horse by wrapping around its leg. Snakes are wise, intuitive, and mysterious.",
+  "Horse": "The Horse came in seventh, almost winning but was startled by the Snake. Horses are energetic, independent, and free-spirited.",
+  "Goat": "The Goat came in eighth by crossing the river peacefully. Goats are creative, peaceful, and empathetic.",
+  "Monkey": "The Monkey came in ninth by using its intelligence to cross. Monkeys are clever, lively, and inventive.",
+  "Rooster": "The Rooster came in tenth after helping others cross. Roosters are observant, hardworking, and courageous.",
+  "Dog": "The Dog came in eleventh as it was busy playing in the water. Dogs are loyal, honest, and dependable.",
+  "Pig": "The Pig came in twelfth after stopping to eat and rest. Pigs are diligent, generous, and compassionate."
+};
+
+// CORRECTED ZODIAC YEARS BASED ON TRADITIONAL CHINESE CALENDAR
+// Note: Chinese New Year usually falls between Jan 21 - Feb 20, so birthdates 
+// before Chinese New Year belong to the previous year's zodiac
 const zodiacYears = {
-  "Rat":{ "Wood":[1924,1984,2044],"Fire":[1936,1996,2056],"Earth":[1948,2008,2068],"Metal":[1960,2020,2080],"Water":[1912,1972,2032] },
-  "Ox":{ "Wood":[1925,1985,2045],"Fire":[1937,1997,2057],"Earth":[1949,2009,2069],"Metal":[1961,2021,2081],"Water":[1913,1973,2033] },
-  "Tiger":{ "Wood":[1926,1986,2046],"Fire":[1938,1998,2058],"Earth":[1950,2010,2070],"Metal":[1962,2022,2082],"Water":[1914,1974,2034] },
-  "Rabbit":{ "Wood":[1927,1987,2047],"Fire":[1939,1999,2059],"Earth":[1951,2011,2071],"Metal":[1963,2023,2083],"Water":[1915,1975,2035] },
-  "Dragon":{ "Wood":[1928,1988,2048],"Fire":[1940,2000,2060],"Earth":[1952,2012,2072],"Metal":[1964,2024,2084],"Water":[1916,1976,2036] },
-  "Snake":{ "Wood":[1929,1989,2049],"Fire":[1941,2001,2061],"Earth":[1953,2013,2073],"Metal":[1965,2025,2085],"Water":[1917,1977,2037] },
-  "Horse":{ "Wood":[1930,1990,2050],"Fire":[1942,2002,2062],"Earth":[1954,2014,2074],"Metal":[1966,2026,2086],"Water":[1918,1978,2038] },
-  "Goat":{ "Wood":[1931,1991,2051],"Fire":[1943,2003,2063],"Earth":[1955,2015,2075],"Metal":[1967,2027,2087],"Water":[1919,1979,2039] },
-  "Monkey":{ "Wood":[1932,1992,2052],"Fire":[1944,2004,2064],"Earth":[1956,2016,2076],"Metal":[1968,2028,2088],"Water":[1920,1980,2040] },
-  "Rooster":{ "Wood":[1933,1993,2053],"Fire":[1945,2005,2065],"Earth":[1957,2017,2077],"Metal":[1969,2029,2089],"Water":[1921,1981,2041] },
-  "Dog":{ "Wood":[1934,1994,2054],"Fire":[1946,2006,2066],"Earth":[1958,2018,2078],"Metal":[1970,2030,2090],"Water":[1922,1982,2042] },
-  "Pig":{ "Wood":[1935,1995,2055],"Fire":[1947,2007,2067],"Earth":[1959,2019,2079],"Metal":[1971,2031,2091],"Water":[1923,1983,2043] }
+  "Rat": { 
+    "Wood":[1924,1984,2044],
+    "Fire":[1936,1996,2056],
+    "Earth":[1948,2008,2068],
+    "Metal":[1960,2020,2080],
+    "Water":[1912,1972,2032] 
+  },
+  "Ox": { 
+    "Wood":[1925,1985,2045],
+    "Fire":[1937,1997,2057],
+    "Earth":[1949,2009,2069],
+    "Metal":[1961,2021,2081],
+    "Water":[1913,1973,2033] 
+  },
+  "Tiger": { 
+    "Wood":[1914,1974,2034],
+    "Fire":[1926,1986,2046],
+    "Earth":[1938,1998,2058],
+    "Metal":[1950,2010,2070],
+    "Water":[1962,2022,2082] 
+  },
+  "Rabbit": { 
+    "Wood":[1915,1975,2035],
+    "Fire":[1927,1987,2047],
+    "Earth":[1939,1999,2059],
+    "Metal":[1951,2011,2071],
+    "Water":[1963,2023,2083] 
+  },
+  "Dragon": { 
+    "Wood":[1904,1964,2024],
+    "Fire":[1916,1976,2036],
+    "Earth":[1928,1988,2048],
+    "Metal":[1940,2000,2060],
+    "Water":[1952,2012,2072] 
+  },
+  "Snake": { 
+    "Wood":[1905,1965,2025],
+    "Fire":[1917,1977,2037],
+    "Earth":[1929,1989,2049],
+    "Metal":[1941,2001,2061],
+    "Water":[1953,2013,2073] 
+  },
+  "Horse": { 
+    "Wood":[1954,2014,2074],
+    "Fire":[1906,1966,2026],
+    "Earth":[1918,1978,2038],
+    "Metal":[1930,1990,2050],
+    "Water":[1942,2002,2062] 
+  },
+  "Goat": { 
+    "Wood":[1955,2015,2075],
+    "Fire":[1907,1967,2027],
+    "Earth":[1919,1979,2039],
+    "Metal":[1931,1991,2051],
+    "Water":[1943,2003,2063] 
+  },
+  "Monkey": { 
+    "Wood":[1944,2004,2064],
+    "Fire":[1956,2016,2076],
+    "Earth":[1908,1968,2028],
+    "Metal":[1920,1980,2040],
+    "Water":[1932,1992,2052] 
+  },
+  "Rooster": { 
+    "Wood":[1945,2005,2065],
+    "Fire":[1957,2017,2077],
+    "Earth":[1909,1969,2029],
+    "Metal":[1921,1981,2041],
+    "Water":[1933,1993,2053] 
+  },
+  "Dog": { 
+    "Wood":[1934,1994,2054],
+    "Fire":[1946,2006,2066],
+    "Earth":[1910,1970,2030],
+    "Metal":[1922,1982,2042],
+    "Water":[1958,2018,2078] 
+  },
+  "Pig": { 
+    "Wood":[1935,1995,2055],
+    "Fire":[1947,2007,2067],
+    "Earth":[1911,1971,2031],
+    "Metal":[1923,1983,2043],
+    "Water":[1959,2019,2079] 
+  }
 };
 
 const famousPeople = {
-  Rat:["George Washington: born on February 22, 1732, a Water Rat 鼠","Wolfgang Amadeus Mozart: born on January 27, 1756, a Fire Rat 鼠","Samuel L. Jackson: born on December 21, 1948, an Earth Rat 鼠","Avril Lavigne: born on September 27, 1984, a Wood Rat 鼠","Tom Holland: born on June 1, 1996, a Fire Rat 鼠"],
-  Ox:["Barack Obama: born on August 4, 1961, a Metal Ox 牛","Vincent Van Gogh: born on March 30, 1853, a Water Ox 牛","Walt Disney: born on December 5, 1901, a Metal Ox 牛","Meryl Streep: born on June 22, 1949, an Earth Ox 牛"],
-  Tiger:["Leonardo DiCaprio: born on November 11, 1974, a Wood Tiger 虎","Tom Cruise: born on July 3, 1962, a Water Tiger 虎","Audrey Hepburn: born on May 4, 1929, an Earth Tiger 虎","Lady Gaga: born on March 28, 1986, a Fire Tiger 虎","Taylor Swift: born on December 13, 1989, an Earth Tiger 虎"],
-  Rabbit:["Albert Einstein: born on March 14, 1879, an Earth Rabbit 兔","Keanu Reeves: born on September 2, 1964, a Wood Rabbit 兔","Emma Watson: born on April 15, 1990, a Metal Rabbit 兔","Indiana Jones: born on July 1, 1899, an Earth Rabbit 兔"],
-  Dragon:["Bruce Lee: born on November 27, 1940, a Metal Dragon 龍","John Lennon: born on October 9, 1940, a Metal Dragon 龍","Rihanna: born on February 20, 1988, an Earth Dragon 龍","Sandra Bullock: born on July 26, 1964, a Wood Dragon 龍","Kendrick Lamar: born on June 17, 1987, a Fire Dragon 龍"],
-  Snake:["Pablo Picasso: born on October 25, 1881, a Metal Snake 蛇","Bob Dylan: born on May 24, 1941, a Metal Snake 蛇","Halle Berry: born on August 14, 1966, a Fire Snake 蛇"],
-  Horse:["Princess Diana: born on July 1, 1961, a Metal Horse 馬","Paul McCartney: born on June 18, 1942, a Water Horse 馬","Neil Armstrong: born on August 5, 1930, a Metal Horse 馬"],
-  Goat:["Steve Jobs: born on February 24, 1955, an Earth Goat 羊","Billie Eilish: born on December 18, 2001, a Metal Goat 羊","Maya Rudolph: born on July 27, 1972, a Water Goat 羊","Chris Hemsworth: born on August 11, 1983, a Water Goat 羊"],
-  Monkey:["Leonardo da Vinci: born on April 15, 1452, a Wood Monkey 猴","Angelina Jolie: born on June 4, 1975, a Wood Monkey 猴","Jimi Hendrix: born on November 27, 1942, a Water Monkey 猴","Diana Ross: born on March 26, 1944, a Wood Monkey 猴","Marty McFly: born on June 12, 1968, an Earth Monkey 猴"],
-  Rooster:["Jennifer Aniston: born on February 11, 1969, an Earth Rooster 雞","Benedict Cumberbatch: born on July 19, 1976, a Fire Rooster 雞","Beyoncé: born on September 4, 1981, a Metal Rooster 雞","Anne Hathaway: born on November 12, 1982, a Water Rooster 雞","Robert Downey Jr: born on April 4, 1965, a Wood Rooster 雞","Lady Gaga: born on March 28, 1986, a Fire Rooster 雞"],
-  Dog:["Elvis Presley: born on January 8, 1935, a Wood Dog 狗","Michael Jackson: born on August 29, 1958, an Earth Dog 狗","Morgan Freeman: born on June 1, 1937, a Fire Dog 狗","Adam Sandler: born on September 9, 1966, a Fire Dog 狗","Eminem: born on October 17, 1972, a Water Dog 狗","Lin‑Manuel Miranda: born on January 16, 1980, a Metal Dog 狗","Jerry Springer: born on February 13, 1944, a Wood Dog 狗","Maury Povich: born on January 17, 1939, an Earth Dog 狗"],
-  Pig:["Barbra Streisand: born on April 24, 1942, a Water Pig 豬","Henry Cavill: born on May 5, 1983, a Water Pig 豬","Cristiano Ronaldo: born on February 5, 1985, a Wood Pig 豬","Jackie Chan: born on April 7, 1954, a Wood Pig 豬","Bad Bunny: born on March 10, 1994, a Wood Pig 豬","Daniel Radcliffe: born on July 23, 1989, an Earth Pig 豬","Lucy Liu: born on December 2, 1968, an Earth Pig 豬"]
+  "Rat": ["George Washington: born on February 22, 1732, a Water Rat 鼠", "Wolfgang Amadeus Mozart: born on January 27, 1756, a Fire Rat 鼠", "Samuel L. Jackson: born on December 21, 1948, an Earth Rat 鼠", "Avril Lavigne: born on September 27, 1984, a Wood Rat 鼠", "Tom Holland: born on June 1, 1996, a Fire Rat 鼠"],
+  "Ox": ["Barack Obama: born on August 4, 1961, a Metal Ox 牛", "Vincent Van Gogh: born on March 30, 1853, a Water Ox 牛", "Walt Disney: born on December 5, 1901, a Metal Ox 牛", "Meryl Streep: born on June 22, 1949, an Earth Ox 牛"],
+  "Tiger": ["Leonardo DiCaprio: born on November 11, 1974, a Wood Tiger 虎", "Tom Cruise: born on July 3, 1962, a Water Tiger 虎", "Audrey Hepburn: born on May 4, 1929, an Earth Tiger 虎", "Lady Gaga: born on March 28, 1986, a Fire Tiger 虎", "Taylor Swift: born on December 13, 1989, an Earth Tiger 虎"],
+  "Rabbit": ["Albert Einstein: born on March 14, 1879, an Earth Rabbit 兔", "Keanu Reeves: born on September 2, 1964, a Wood Rabbit 兔", "Emma Watson: born on April 15, 1990, a Metal Rabbit 兔", "Indiana Jones: born on July 1, 1899, an Earth Rabbit 兔"],
+  "Dragon": ["Bruce Lee: born on November 27, 1940, a Metal Dragon 龍", "John Lennon: born on October 9, 1940, a Metal Dragon 龍", "Rihanna: born on February 20, 1988, an Earth Dragon 龍", "Sandra Bullock: born on July 26, 1964, a Wood Dragon 龍", "Kendrick Lamar: born on June 17, 1987, a Fire Dragon 龍"],
+  "Snake": ["Pablo Picasso: born on October 25, 1881, a Metal Snake 蛇", "Bob Dylan: born on May 24, 1941, a Metal Snake 蛇", "Halle Berry: born on August 14, 1966, a Fire Snake 蛇"],
+  "Horse": ["Princess Diana: born on July 1, 1961, a Metal Horse 馬", "Paul McCartney: born on June 18, 1942, a Water Horse 馬", "Neil Armstrong: born on August 5, 1930, a Metal Horse 馬"],
+  "Goat": ["Steve Jobs: born on February 24, 1955, an Earth Goat 羊", "Billie Eilish: born on December 18, 2001, a Metal Goat 羊", "Maya Rudolph: born on July 27, 1972, a Water Goat 羊", "Chris Hemsworth: born on August 11, 1983, a Water Goat 羊"],
+  "Monkey": ["Leonardo da Vinci: born on April 15, 1452, a Wood Monkey 猴", "Angelina Jolie: born on June 4, 1975, a Wood Monkey 猴", "Jimi Hendrix: born on November 27, 1942, a Water Monkey 猴", "Diana Ross: born on March 26, 1944, a Wood Monkey 猴", "Marty McFly: born on June 12, 1968, an Earth Monkey 猴"],
+  "Rooster": ["Jennifer Aniston: born on February 11, 1969, an Earth Rooster 雞", "Benedict Cumberbatch: born on July 19, 1976, a Fire Rooster 雞", "Beyoncé: born on September 4, 1981, a Metal Rooster 雞", "Anne Hathaway: born on November 12, 1982, a Water Rooster 雞", "Robert Downey Jr: born on April 4, 1965, a Wood Rooster 雞", "Lady Gaga: born on March 28, 1986, a Fire Rooster 雞"],
+  "Dog": ["Elvis Presley: born on January 8, 1935, a Wood Dog 狗", "Michael Jackson: born on August 29, 1958, an Earth Dog 狗", "Morgan Freeman: born on June 1, 1937, a Fire Dog 狗", "Adam Sandler: born on September 9, 1966, a Fire Dog 狗", "Eminem: born on October 17, 1972, a Water Dog 狗", "Lin‑Manuel Miranda: born on January 16, 1980, a Metal Dog 狗", "Jerry Springer: born on February 13, 1944, a Wood Dog 狗", "Maury Povich: born on January 17, 1939, an Earth Dog 狗"],
+  "Pig": ["Barbra Streisand: born on April 24, 1942, a Water Pig 豬", "Henry Cavill: born on May 5, 1983, a Water Pig 豬", "Cristiano Ronaldo: born on February 5, 1985, a Wood Pig 豬", "Jackie Chan: born on April 7, 1954, a Wood Pig 豬", "Bad Bunny: born on March 10, 1994, a Wood Pig 豬", "Daniel Radcliffe: born on July 23, 1989, an Earth Pig 豬", "Lucy Liu: born on December 2, 1968, an Earth Pig 豬"]
 };
 
 /* ---------------- INIT DROPDOWNS ---------------- */
 function initBirthdayDropdowns(){
-  const month=document.getElementById("month"), day=document.getElementById("day"), year=document.getElementById("year");
-  ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].forEach((m,i)=>month.add(new Option(m,i+1)));
-  for(let d=1;d<=31;d++) day.add(new Option(d,d));
-  const currentYear=(new Date()).getFullYear();
-  for(let y=currentYear; y>=currentYear-80; y--) year.add(new Option(y,y));
+  const month = document.getElementById("month");
+  const day = document.getElementById("day");
+  const year = document.getElementById("year");
+  
+  // Months
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  months.forEach((m, i) => {
+    const option = new Option(m, i + 1);
+    month.add(option);
+  });
+  
+  // Days
+  for(let d = 1; d <= 31; d++) {
+    day.add(new Option(d, d));
+  }
+  
+  // Years - START AT 2026
+  const startYear = 2026;
+  const endYear = startYear - 100;
+  
+  for(let y = startYear; y >= endYear; y--) {
+    year.add(new Option(y, y));
+  }
+  
+  // Set default values
+  month.value = 1;
+  day.value = 1;
+  year.value = startYear;
 }
 
-/* ---------------- ZODIAC CALC ---------------- */
+/* ---------------- ZODIAC CALCULATION ---------------- */
 function getUserZodiacFromDropdown(){
-  const y=parseInt(document.getElementById("year").value);
-  return {animal: animals[(y-4)%12], element: elements[Math.floor(((y-4)%10)/2)], year: y};
-}
-function generateZodiacText(animal, element, year){
-  let text = `Your Zodiac: ${element} ${animal} ${chineseSymbol[animal]} (${year})<hr style="border:none; height:2px; background-color:#972525; margin:10px 0;">Other years by element:<br>`;
-  const years = zodiacYears[animal];
-  if(years) elements.forEach(el => text+=`${el} ${elementChinese[el]}: ${years[el].join(', ')}<br>`);
-  document.getElementById("famous").innerHTML = famousPeople[animal].join("<br>");
-  return text;
+  const y = parseInt(document.getElementById("year").value);
+  const m = parseInt(document.getElementById("month").value);
+  const d = parseInt(document.getElementById("day").value);
+  
+  if (isNaN(y)) {
+    return {animal: "Dragon", element: "Wood", year: 2024}; // Default to 2024 Wood Dragon
+  }
+  
+  // IMPORTANT: Chinese New Year adjustments
+  // Chinese New Year typically falls between Jan 21 - Feb 20
+  // If birthdate is before Chinese New Year, it belongs to previous year's zodiac
+  
+  // This is a simplified version. For accurate results, you would need 
+  // a complete Chinese New Year date table for all years
+  
+  // For demonstration, we'll use the mathematical formula:
+  // Animal cycle: (year - 1900) % 12
+  // Element cycle: (year - 1900) % 10
+  
+  const animalIndex = ((y - 1900) % 12 + 12) % 12;
+  const elementIndex = ((y - 1900) % 10 + 10) % 10;
+  
+  const animal = animals[animalIndex];
+  
+  // Map element index to element
+  let element;
+  switch(elementIndex) {
+    case 0: case 1: element = "Metal"; break;
+    case 2: case 3: element = "Water"; break;
+    case 4: case 5: element = "Wood"; break;
+    case 6: case 7: element = "Fire"; break;
+    case 8: case 9: element = "Earth"; break;
+    default: element = "Wood";
+  }
+  
+  return {animal: animal, element: element, year: y};
 }
 
-/* ---------------- REELS ---------------- */
-function initReels(){
-  for(let i=1;i<=3;i++){
-    const reel=document.getElementById("reel"+i);
-    reel.innerHTML="";
-    for(let j=0;j<2;j++) animals.forEach(a=>{
-      const img=document.createElement("img");
-      img.src=`images/${a}.png`;
-      img.onerror=function(){this.src=`images/${a.replace(/\s+/g,'')}.png`;};
-      reel.appendChild(img);
+/* ---------------- GENERATE TAB CONTENT ---------------- */
+function generateZodiacText(animal, element, year){
+  console.log("Generating zodiac text for:", animal, element, year);
+  
+  // 1. Generate General Info
+  let generalText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838;">
+                <strong>Your Zodiac: ${element} ${animal} ${chineseSymbol[animal]} (${year})</strong>
+              </div>
+              <hr style="border: none; height: 1px; background-color: #972525; margin: 10px 0;">
+              <div style="font-size: 0.9em; line-height: 1.4;">
+                <strong>Other years by element:</strong><br>`;
+  
+  const years = zodiacYears[animal];
+  if(years) {
+    elements.forEach(el => {
+      if (years[el] && years[el].length > 0) {
+        // Show only years that make sense (not future ones too far ahead)
+        const relevantYears = years[el].filter(y => y <= 2100 && y >= 1900);
+        if (relevantYears.length > 0) {
+          generalText += `${el} ${elementChinese[el]}: ${relevantYears.join(', ')}<br>`;
+        }
+      }
     });
-    reel.style.top="0px";
-    reel.dataset.cycleHeight=reel.querySelectorAll('img').length*100;
+  }
+  
+  generalText += `<br><em style="font-size: 0.8em; color: #666;">Note: Chinese New Year falls between Jan 21-Feb 20. Birthdates before Chinese New Year belong to the previous zodiac year.</em>`;
+  generalText += "</div>";
+  
+  // 2. Generate History content
+  const storyText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838;">
+            <strong>The History of the ${animal}</strong>
+          </div>
+          <hr style="border: none; height: 1px; background-color: #972525; margin: 10px 0;">
+          <div style="font-size: 0.9em; line-height: 1.4;">
+            <p>${zodiacStories[animal]}</p>
+            <p>The ${element} element influences the ${animal}'s personality, adding characteristics of ${getElementDescription(element)}.</p>
+          </div>`;
+  
+  // 3. Generate Elements content - YOUR ELEMENT FIRST
+  let elementsText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838;">
+                <strong>Chinese Zodiac Elements</strong>
+              </div>
+              <hr style="border: none; height: 1px; background-color: #972525; margin: 10px 0;">
+              <div style="font-size: 0.9em; line-height: 1.4;">`;
+  
+  // Create a new array with your element first, then the rest
+  const orderedElements = [element];
+  elements.forEach(el => {
+    if (el !== element) {
+      orderedElements.push(el);
+    }
+  });
+  
+  orderedElements.forEach(el => {
+    const isCurrent = el === element;
+    elementsText += `<div style="margin-bottom: 10px; padding: 8px; background: ${isCurrent ? '#ffe6e9' : '#f9f9f9'}; border-radius: 6px; border-left: 3px solid ${isCurrent ? '#be3838' : '#972525'}">
+              <strong>${el} ${elementChinese[el]}</strong><br>
+              ${elementDescriptions[el]}
+              ${isCurrent ? '<br><em style="color: #be3838; font-size: 0.85em;">(Your element)</em>' : ''}
+            </div>`;
+  });
+  
+  elementsText += "</div>";
+  
+  // 4. Generate Famous People content
+  const famousText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838;">
+            <strong>Famous ${animal}s</strong>
+          </div>
+          <hr style="border: none; height: 1px; background-color: #972525; margin: 10px 0;">
+          <div style="font-size: 0.8em; line-height: 1.3;">
+            ${famousPeople[animal].join("<br>")}
+          </div>`;
+  
+  // Set all the content
+  document.getElementById("general").innerHTML = generalText;
+  document.getElementById("story").innerHTML = storyText;
+  document.getElementById("elements").innerHTML = elementsText;
+  document.getElementById("famous").innerHTML = famousText;
+  
+  console.log("Content generated and set in DOM");
+}
+
+/* ---------------- HELPER FUNCTIONS ---------------- */
+function getElementDescription(element){
+  const descriptions = {
+    "Wood": "growth and creativity",
+    "Fire": "passion and energy", 
+    "Earth": "stability and practicality",
+    "Metal": "determination and strength",
+    "Water": "wisdom and intuition"
+  };
+  return descriptions[element];
+}
+
+/* ---------------- INITIALIZE REELS ---------------- */
+function initReels(){
+  const reelContainers = document.querySelectorAll('.reel-container');
+  if (reelContainers.length === 0) return;
+  
+  const reelHeight = reelContainers[0].offsetHeight;
+  
+  for(let i = 1; i <= 3; i++){
+    const reel = document.getElementById("reel" + i);
+    if (!reel) continue;
+    
+    reel.innerHTML = "";
+    
+    // Create 2 cycles of all animals (for seamless looping)
+    for(let cycle = 0; cycle < 2; cycle++) {
+      animals.forEach(animal => {
+        const img = document.createElement("img");
+        img.src = `images/${animal}.png`;
+        img.alt = animal;
+        img.loading = "lazy";
+        img.onerror = function(){
+          this.src = `images/${animal.replace(/\s+/g,'')}.png`;
+        };
+        reel.appendChild(img);
+      });
+    }
+    
+    reel.style.top = "0px";
+    reel.dataset.cycleHeight = reel.children.length * reelHeight;
   }
 }
 
 /* ---------------- CONFETTI ---------------- */
 function fireConfetti(){
-  const count=800, defaults={origin:{y:0.6},spread:460,ticks:50,gravity:-1,decay:0.94,startVelocity:40,colors:['#CC232A','#FFD84B','#F2888B','#A3262A','#CC9902','#00A36C','#F5AC27']};
-  const fire=(r,o)=>confetti({...defaults,...o,particleCount:Math.floor(count*r)});
-  fire(0.25,{spread:26,startVelocity:55}); fire(0.2,{spread:60}); fire(0.35,{spread:100,decay:0.91,scalar:0.8});
-  fire(0.1,{spread:120,startVelocity:25,decay:0.92,scalar:1.2}); fire(0.1,{spread:120,startVelocity:45});
-  [0,100,200].forEach(t=>setTimeout(()=>{confetti({...defaults,particleCount:40,scalar:1.2,shapes:['star']}); confetti({...defaults,particleCount:10,scalar:0.75,shapes:['circle']});}, t));
+  const defaults = {
+    origin: { y: 0.6 },
+    spread: 360,
+    ticks: 100,
+    gravity: 0.8,
+    decay: 0.94,
+    startVelocity: 30,
+    colors: ['#CC232A', '#FFD84B', '#F2888B', '#A3262A', '#CC9902', '#00A36C', '#F5AC27']
+  };
+  
+  // Multiple confetti bursts
+  confetti({
+    ...defaults,
+    particleCount: 150,
+    scalar: 1.2,
+    shapes: ['circle', 'star']
+  });
+  
+  setTimeout(() => {
+    confetti({
+      ...defaults,
+      particleCount: 100,
+      angle: 60,
+      spread: 80
+    });
+  }, 150);
+  
+  setTimeout(() => {
+    confetti({
+      ...defaults,
+      particleCount: 100,
+      angle: 120,
+      spread: 80
+    });
+  }, 300);
 }
 
 /* ---------------- SINGLE SLOT ---------------- */
 function collapseToSingleSlot(animal){
-  const reels=document.getElementById("reels"); reels.style.opacity="0";
-  setTimeout(()=>{
-    reels.innerHTML="";
-    const container=document.createElement("div"); container.className='reel-container single';
-    const img=document.createElement("img"); img.className='single-photo'; img.src=`images/${animal}.png`;
-    img.onerror=function(){this.src=`images/${animal.replace(/\s+/g,'')}.png`;};
-    const overlay=document.createElement("img"); overlay.className='overlay'; overlay.src='images/overlay.png';
-    container.appendChild(img); container.appendChild(overlay); reels.appendChild(container); reels.style.opacity="1";
+  const reels = document.getElementById("reels");
+  reels.style.opacity = "0.5";
+  
+  setTimeout(() => {
+    reels.innerHTML = "";
+    
+    const container = document.createElement("div");
+    container.className = 'reel-container single';
+    
+    const img = document.createElement("img");
+    img.className = 'single-photo';
+    img.src = `images/${animal}.png`;
+    img.alt = `${animal} zodiac sign`;
+    img.loading = "lazy";
+    img.onerror = function(){
+      this.src = `images/${animal.replace(/\s+/g,'')}.png`;
+    };
+    
+    const overlay = document.createElement("img");
+    overlay.className = 'overlay';
+    overlay.src = 'images/overlay.png';
+    overlay.alt = "Slot machine overlay";
+    
+    container.appendChild(img);
+    container.appendChild(overlay);
+    reels.appendChild(container);
+    
+    reels.style.opacity = "1";
     document.querySelector('.tabs-wrapper').classList.add('active');
-  },320);
+    
+    // Scroll to tabs on mobile
+    if (window.innerWidth < 768) {
+      setTimeout(() => {
+        document.querySelector('.tabs-wrapper').scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 500);
+    }
+  }, 400);
 }
 
-/* ---------------- SPIN ---------------- */
-let originalReelsHTML=null;
+/* ---------------- SPIN FUNCTION ---------------- */
 function startSpin(){
+  if (isSpinning) return;
+  isSpinning = true;
+  
+  // Disable button during spin
+  const spinButton = document.getElementById("spinButton");
+  spinButton.disabled = true;
+  spinButton.style.opacity = "0.7";
+  spinButton.innerHTML = '<span class="gold">Spinning...</span>';
+  
   fireConfetti();
-  const reelsDiv=document.getElementById("reels");
-  if(!document.getElementById("reel1") && originalReelsHTML){ reelsDiv.innerHTML=originalReelsHTML; initReels(); }
-
-  const {animal, element, year}=getUserZodiacFromDropdown();
-  const reels=[document.getElementById("reel1"), document.getElementById("reel2"), document.getElementById("reel3")];
-  const targetIndex=animals.indexOf(animal);
-  const spinDurations=[2000,3000,4000];
-
-  reels.forEach((reel,i)=>{
-    const startTime=Date.now();
-    const cycleHeight=parseInt(reel.dataset.cycleHeight);
-    const step=12; const tickMs=14; reel.style.transition='none';
-    const interval=setInterval(()=>{
-      let top=parseFloat(reel.style.top)||0;
-      top-=step;
-      if(Math.abs(top)>=cycleHeight/2) top+=cycleHeight/2;
-      reel.style.top=top+'px';
-      if(Date.now()-startTime>=spinDurations[i]){
+  
+  const reelsDiv = document.getElementById("reels");
+  
+  // Reset to three reels if showing single
+  if (!document.getElementById("reel1") && originalReelsHTML) {
+    reelsDiv.innerHTML = originalReelsHTML;
+    initReels();
+  }
+  
+  const {animal, element, year} = getUserZodiacFromDropdown();
+  console.log("Calculated zodiac:", animal, element, year);
+  
+  const reels = [
+    document.getElementById("reel1"),
+    document.getElementById("reel2"),
+    document.getElementById("reel3")
+  ].filter(reel => reel !== null);
+  
+  const targetIndex = animals.indexOf(animal);
+  const spinDurations = [1800, 2400, 3000];
+  let completedSpins = 0;
+  
+  reels.forEach((reel, i) => {
+    if (!reel) return;
+    
+    const startTime = Date.now();
+    const cycleHeight = parseInt(reel.dataset.cycleHeight) || 2400;
+    const step = 14;
+    const tickMs = 16;
+    
+    reel.style.transition = 'none';
+    
+    const interval = setInterval(() => {
+      let top = parseFloat(reel.style.top) || 0;
+      top -= step;
+      
+      if (Math.abs(top) >= cycleHeight / 2) {
+        top += cycleHeight / 2;
+      }
+      
+      reel.style.top = top + 'px';
+      
+      if (Date.now() - startTime >= spinDurations[i]) {
         clearInterval(interval);
-        const imgCount=animals.length;
-        reel.style.transition='top 0.45s ease-out';
-        reel.style.top=-(targetIndex+imgCount)*100+'px';
-        if(i===2){
-          const onSettled=function(e){ if(e.propertyName!=='top') return; reel.removeEventListener('transitionend',onSettled);
-            document.getElementById("general").innerHTML=generateZodiacText(animal, element, year);
-            document.getElementById("story").innerHTML="Story content goes here...";
+        
+        const imgCount = animals.length;
+        const containerHeight = reel.parentElement.offsetHeight;
+        reel.style.transition = 'top 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        reel.style.top = -(targetIndex + imgCount) * containerHeight + 'px';
+        
+        completedSpins++;
+        
+        if (completedSpins === reels.length) {
+          const onSettled = function(e) {
+            if (e.propertyName !== 'top') return;
+            reel.removeEventListener('transitionend', onSettled);
+            
+            // Generate and display all tab content
+            generateZodiacText(animal, element, year);
             collapseToSingleSlot(animal);
+            
+            // Re-enable button
+            setTimeout(() => {
+              spinButton.disabled = false;
+              spinButton.style.opacity = "1";
+              spinButton.innerHTML = '<span class="gold">Get My Zodiac!</span>';
+              isSpinning = false;
+            }, 500);
           };
-          reel.addEventListener('transitionend',onSettled);
+          
+          reel.addEventListener('transitionend', onSettled);
         }
       }
     }, tickMs);
   });
 }
 
-/* ---------------- INIT ---------------- */
-initBirthdayDropdowns();
-initReels();
-originalReelsHTML=document.getElementById("reels").innerHTML;
+/* ---------------- INITIALIZATION ---------------- */
+window.addEventListener('DOMContentLoaded', function() {
+  initBirthdayDropdowns();
+  initReels();
+  originalReelsHTML = document.getElementById("reels").innerHTML;
+  
+  // Handle window resize
+  let resizeTimeout;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      if (document.getElementById("reel1")) {
+        initReels();
+      }
+    }, 250);
+  });
+  
+  // Touch device optimizations
+  const spinButton = document.getElementById('spinButton');
+  
+  spinButton.addEventListener('touchstart', function() {
+    this.style.transform = 'translateY(4px)';
+  });
+  
+  spinButton.addEventListener('touchend', function() {
+    this.style.transform = '';
+  });
+  
+  // Add keyboard support for dropdowns
+  document.querySelectorAll('select').forEach(select => {
+    select.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        startSpin();
+      }
+    });
+  });
+  
+  // Enter key support for the page
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !isSpinning) {
+      startSpin();
+    }
+  });
+});
 </script>
 </body>
 </html>
