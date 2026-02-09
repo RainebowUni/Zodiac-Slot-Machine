@@ -103,8 +103,8 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
 .wrapper { width: 95%; max-width: 450px; margin: 40px auto; }
 .tabs-section [type="radio"] { display: none; }
 .tabs-section label {
-  display: inline-block;   /* keep inline for natural sizing */
-  padding: 0.5em 1em;      /* spacing around text */
+  display: inline-block;   
+  padding: 0.5em 1em;      
   background: #972525;
   color: #ffe6e9;
   margin-right: 4px;
@@ -113,11 +113,10 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   border-radius: 0.5em;
   position: relative;
   border: 1.5px solid #000;
-  white-space: nowrap;     /* don't wrap text */
-  width: auto;             /* auto width */
-  min-width: 0;            /* remove any min-width */
+  white-space: nowrap;     
+  width: auto;             
+  min-width: 0;            
 }
-
 .tabs-section label span { position: relative; z-index: 3; }
 .tabs-section label:after {
   content: '';
@@ -134,6 +133,7 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
 .tabs-section [type="radio"]:checked + label { background: #be3838; }
 .tabs-section [type="radio"]:checked + label:after { background: #ffffff; z-index: 2; }
 .tabs-section [type="radio"]:checked + label span { color: #be3838; z-index: 3; }
+
 .tabs-content {
   position: relative;
   border: 2.5px solid #000;
@@ -147,6 +147,14 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   max-width: 100%;
   box-sizing: border-box;
   margin-top: -4px;
+}
+
+/* ---------------- TAB SWITCHING FIX ---------------- */
+.tabs-content section { display: none; }
+#tab1:checked ~ .tabs-content #general,
+#tab2:checked ~ .tabs-content #story,
+#tab3:checked ~ .tabs-content #famous {
+  display: block;
 }
 
 /* ---------------- SCROLLBAR ---------------- */
@@ -185,7 +193,6 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
   <div class="reel-container"><div class="reel" id="reel3"></div><img src="images/overlay.png" class="overlay"></div>
 </div>
 
-<!-- ---------------- RADIO BUTTON TABS ---------------- -->
 <div class="tabs-wrapper">
   <div class="wrapper">
     <section class="tabs-section">
@@ -199,16 +206,16 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
       <label for="tab3"><span>Famous People</span></label>
 
       <div class="tabs-content">
-        <section id="General"></section>
-        <section id="Story"></section>
-        <section id="Famous"></section>
+        <section id="general"></section>
+        <section id="story"></section>
+        <section id="famous"></section>
       </div>
     </section>
   </div>
 </div>
 
 <script>
-/* ---------------- DATA ---------------- */
+// ---------------- DATA ----------------
 const animals = ["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"];
 const chineseSymbol = { Rat:'鼠', Ox:'牛', Tiger:'虎', Rabbit:'兔', Dragon:'龍', Snake:'蛇', Horse:'馬', Goat:'羊', Monkey:'猴', Rooster:'雞', Dog:'狗', Pig:'豬' };
 const elements = ["Wood","Fire","Earth","Metal","Water"];
@@ -228,13 +235,12 @@ const zodiacYears = {
   "Pig":{ "Wood":[1935,1995,2055],"Fire":[1947,2007,2067],"Earth":[1959,2019,2079],"Metal":[1971,2031,2091],"Water":[1923,1983,2043] }
 };
 
-/* ---------------- FAMOUS PEOPLE ---------------- */
 const famousPeople = {
   Rat:["George Washington: born on February 22, 1732, a Water Rat 鼠","Wolfgang Amadeus Mozart: born on January 27, 1756, a Fire Rat 鼠","Samuel L. Jackson: born on December 21, 1948, an Earth Rat 鼠","Avril Lavigne: born on September 27, 1984, a Wood Rat 鼠","Tom Holland: born on June 1, 1996, a Fire Rat 鼠"],
   Ox:["Barack Obama: born on August 4, 1961, a Metal Ox 牛","Vincent Van Gogh: born on March 30, 1853, a Water Ox 牛","Walt Disney: born on December 5, 1901, a Metal Ox 牛","Meryl Streep: born on June 22, 1949, an Earth Ox 牛"],
   Tiger:["Leonardo DiCaprio: born on November 11, 1974, a Wood Tiger 虎","Tom Cruise: born on July 3, 1962, a Water Tiger 虎","Audrey Hepburn: born on May 4, 1929, an Earth Tiger 虎","Lady Gaga: born on March 28, 1986, a Fire Tiger 虎","Taylor Swift: born on December 13, 1989, an Earth Tiger 虎"],
   Rabbit:["Albert Einstein: born on March 14, 1879, an Earth Rabbit 兔","Keanu Reeves: born on September 2, 1964, a Wood Rabbit 兔","Emma Watson: born on April 15, 1990, a Metal Rabbit 兔","Indiana Jones: born on July 1, 1899, an Earth Rabbit 兔"],
-  Dragon:["Bruce Lee: born on November 27, 1940, a Metal Dragon 龍","John Lennon: born on October 9, 1940, a Metal Dragon 龍","Rihanna: born on February 20, 1988, an Earth Dragon 龍","Sandra Bullock: born on July 26, 1964, a Wood Dragon 龍","Kendrick Lamar (we dont support Drake here): born on June 17, 1987, a Fire Dragon 龍"],
+  Dragon:["Bruce Lee: born on November 27, 1940, a Metal Dragon 龍","John Lennon: born on October 9, 1940, a Metal Dragon 龍","Rihanna: born on February 20, 1988, an Earth Dragon 龍","Sandra Bullock: born on July 26, 1964, a Wood Dragon 龍","Kendrick Lamar: born on June 17, 1987, a Fire Dragon 龍"],
   Snake:["Pablo Picasso: born on October 25, 1881, a Metal Snake 蛇","Bob Dylan: born on May 24, 1941, a Metal Snake 蛇","Halle Berry: born on August 14, 1966, a Fire Snake 蛇"],
   Horse:["Princess Diana: born on July 1, 1961, a Metal Horse 馬","Paul McCartney: born on June 18, 1942, a Water Horse 馬","Neil Armstrong: born on August 5, 1930, a Metal Horse 馬"],
   Goat:["Steve Jobs: born on February 24, 1955, an Earth Goat 羊","Billie Eilish: born on December 18, 2001, a Metal Goat 羊","Maya Rudolph: born on July 27, 1972, a Water Goat 羊","Chris Hemsworth: born on August 11, 1983, a Water Goat 羊"],
