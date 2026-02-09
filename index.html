@@ -25,8 +25,13 @@ select { padding: 10px; font-size: 16px; margin: 5px; }
 #title-img { width: 90vw; max-width: 600px; height: auto; margin-top: 20px; }
 
 /* ---------------- LANTERNS ---------------- */
-.lantern-wrapper { display: flex; align-items: center; justify-content: center; gap: 0.5em; }
-.lantern-wrapper .lantern { width: 5em; height: 8.5em; transform-origin: top center; animation: sway-left 5.5s linear infinite; }
+.lantern-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1vw;
+}.lantern-wrapper .lantern { width: 5em; height: 8.5em; transform-origin: top center; animation: sway-left 5.5s linear infinite; }
 .lantern-wrapper .lantern:last-child { animation-name: sway-right; }
 @keyframes sway-left { 0%{transform:rotate(-5deg);}50%{transform:rotate(5deg);}100%{transform:rotate(-5deg);} }
 @keyframes sway-right { 0%{transform:rotate(5deg);}50%{transform:rotate(-5deg);}100%{transform:rotate(5deg);} }
