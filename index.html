@@ -28,7 +28,8 @@ html {
 body {
   text-align: center;
   font-family: "Diphylleia", serif;
-  background: #ffe6e9;
+  background: #ffe6e9; /* SOLID RED COLOR INSTEAD OF OMBRE */
+  background-attachment: fixed;
   color: #fff;
   min-height: 100vh;
   padding: 10px;
@@ -38,29 +39,63 @@ body {
   max-width: 100%;
 }
 
-/* MAIN CONTAINER */
+/* CHINESE PATTERN BACKGROUND */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* CHINESE BORDER DECORATION - GOLD BORDER */
 .main-container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  border: 8px double gold; /* CHANGED TO GOLD */
+  box-shadow: 
+    0 0 30px rgba(190, 56, 56, 0.5),
+    inset 0 0 30px rgba(255, 255, 255, 0.2);
 }
 
-/* TITLE */
+/* REMOVED CHINESE CLOUD DECORATIONS AND RED DOT */
+.cloud-decoration {
+  display: none; /* REMOVED ALL CLOUD DECORATIONS */
+}
+
+/* TITLE IMAGE ONLY */
 #title-img {
   display: block;
   width: min(95%, 600px);
   height: auto;
   margin: 0 auto 20px auto;
   max-width: 100%;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
 }
 
-/* LANTERNS CONTAINER - UPDATED */
+/* REMOVED ALL CHINESE TITLE STYLING */
+.chinese-title {
+  display: none; /* REMOVED 十二生肖 */
+}
+
+/* LANTERNS CONTAINER */
 .lanterns-container {
   width: 100%;
   position: relative;
-  margin: 20px 0 30px 0;
+  margin: 20px 0 40px 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -84,13 +119,14 @@ body {
   flex-shrink: 0;
 }
 
-/* LANTERNS */
+/* ENHANCED LANTERNS */
 .lantern {
-  width: 80px;
-  height: 136px;
+  width: 100px;
+  height: 170px;
   transform-origin: top center;
   animation: sway-left 5.5s ease-in-out infinite;
   flex-shrink: 0;
+  filter: drop-shadow(0 10px 20px rgba(255, 215, 0, 0.5));
 }
 
 .lantern-right-container .lantern {
@@ -98,15 +134,20 @@ body {
 }
 
 @keyframes sway-left { 
-  0% { transform: rotate(-5deg); }
-  50% { transform: rotate(5deg); }
-  100% { transform: rotate(-5deg); } 
+  0% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+  100% { transform: rotate(-8deg); } 
 }
 
 @keyframes sway-right { 
-  0% { transform: rotate(5deg); }
-  50% { transform: rotate(-5deg); }
-  100% { transform: rotate(5deg); } 
+  0% { transform: rotate(8deg); }
+  50% { transform: rotate(-8deg); }
+  100% { transform: rotate(8deg); } 
+}
+
+/* REMOVED CHINESE KNOT DECORATION */
+.knot-decoration {
+  display: none; /* REMOVED THE KNOT */
 }
 
 /* CONTENT WRAPPER */
@@ -117,17 +158,26 @@ body {
   min-width: 300px;
   max-width: 400px;
   padding: 0 20px;
+  position: relative;
+  z-index: 2;
 }
 
 .content-box {
   width: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 25px;
+  border-radius: 15px;
+  border: 3px solid #be3838;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.2),
+    inset 0 0 20px rgba(255, 215, 0, 0.2);
 }
 
 .dropdown-button-column {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
   width: 100%;
 }
 
@@ -139,49 +189,54 @@ body {
   width: 100%;
 }
 
-/* DROPDOWNS */
+/* ENHANCED DROPDOWNS */
 select {
-  padding: 12px 15px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 1.1rem;
+  border: 2px solid #be3838;
+  border-radius: 8px;
   background: white;
   color: #333;
-  min-width: 100px;
+  min-width: 110px;
   cursor: pointer;
   font-family: "Diphylleia", serif;
   transition: all 0.3s ease;
   flex: 1;
-  max-width: 120px;
-  box-shadow: none !important;
+  max-width: 130px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 select:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(190, 56, 56, 0.3) !important;
+  box-shadow: 0 0 0 4px rgba(190, 56, 56, 0.3);
+  border-color: #ff3333;
 }
 
-/* SPIN BUTTON */
+/* ENHANCED SPIN BUTTON */
 #spinButton {
   position: relative;
   font-family: "Diphylleia", serif;
   font-weight: 600;
   color: #382b22;
   text-transform: uppercase;
-  padding: 18px 35px;
-  background: #be3838;
-  border: 2px solid #000;
-  border-radius: 12px;
+  padding: 22px 40px;
+  background: linear-gradient(145deg, #be3838, #972525);
+  border: 3px solid #000;
+  border-radius: 15px;
   cursor: pointer;
   outline: 2px solid transparent;
   transform-style: preserve-3d;
   transition: all 0.2s ease;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   width: 100%;
-  max-width: 300px;
+  max-width: 350px;
   display: block;
   margin: 0 auto;
-  box-shadow: none !important;
+  box-shadow: 
+    0 10px 20px rgba(0, 0, 0, 0.3),
+    inset 0 2px 0 rgba(255, 255, 255, 0.4);
+  overflow: hidden;
 }
 
 #spinButton::before {
@@ -191,32 +246,30 @@ select:focus {
   height: 100%; 
   top: 0; 
   left: 0;
-  background: #972525; 
+  background: linear-gradient(145deg, #972525, #6a1a1a); 
   border-radius: inherit;
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
-  transform: translate3d(0, 8px, -8px);
+  transform: translate3d(0, 12px, -12px);
   transition: all 0.2s ease;
   z-index: -1;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 #spinButton:hover { 
-  background: #972525; 
-  transform: translateY(4px); 
+  background: linear-gradient(145deg, #972525, #be3838); 
+  transform: translateY(6px); 
 }
 
 #spinButton:hover::before { 
-  transform: translate3d(0, 4px, -8px);
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+  transform: translate3d(0, 6px, -12px);
 }
 
 #spinButton:active { 
-  background: #972525; 
-  transform: translateY(8px); 
+  background: linear-gradient(145deg, #6a1a1a, #972525); 
+  transform: translateY(12px); 
 }
 
 #spinButton:active::before { 
-  transform: translate3d(0, 0, -8px);
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+  transform: translate3d(0, 0, -12px);
 }
 
 #spinButton .gold {
@@ -230,9 +283,10 @@ select:focus {
   background-image: linear-gradient(90deg, #daa520 0%, #e8b923 25%, #ffde22 50%, #ffd700 75%, #b8860b 100%);
   background-size: 200% 100%;
   animation: goldShift 3s linear infinite;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   z-index: 1;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes goldShift { 
@@ -242,7 +296,7 @@ select:focus {
 
 /* REELS SECTION */
 .reels-section {
-  margin: 40px auto;
+  margin: 50px auto;
   width: 100%;
   position: relative;
 }
@@ -252,37 +306,45 @@ select:focus {
   justify-content: center;
   align-items: center;
   transition: opacity 300ms ease;
-  gap: 20px;
+  gap: 25px;
   padding: 0 20px;
   max-width: 100%;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
 
 .reel-container {
-  width: 130px;
-  height: 130px;
+  width: 150px;
+  height: 150px;
   overflow: hidden;
-  background: #fff;
-  border: 4px solid #fff;
+  background: white;
+  border: 5px solid #be3838;
   position: relative;
-  border-radius: 15px;
-  box-shadow: 0 0 20px #fff;
+  border-radius: 20px;
+  box-shadow: 
+    0 0 30px #fff,
+    0 0 60px rgba(190, 56, 56, 0.8),
+    inset 0 0 20px rgba(255, 215, 0, 0.3);
   animation: glow 2s infinite alternate;
   flex-shrink: 0;
 }
 
 @keyframes glow {
   0% { 
-    box-shadow: 0 0 10px #fff, 
-                0 0 5px rgba(190, 56, 56, 0.3); 
+    box-shadow: 0 0 20px #fff, 
+                0 0 40px rgba(190, 56, 56, 0.5),
+                inset 0 0 10px rgba(255, 215, 0, 0.2); 
   }
   50% { 
-    box-shadow: 0 0 25px #be3838, 
-                0 0 40px rgba(175, 36, 36, 0.8); 
+    box-shadow: 0 0 40px #be3838, 
+                0 0 80px rgba(175, 36, 36, 0.9),
+                inset 0 0 30px rgba(255, 215, 0, 0.5); 
   }
   100% { 
-    box-shadow: 0 0 10px #fff, 
-                0 0 5px rgba(254, 230, 233, 0.3); 
+    box-shadow: 0 0 20px #fff, 
+                0 0 40px rgba(254, 230, 233, 0.5),
+                inset 0 0 10px rgba(255, 215, 0, 0.2); 
   }
 }
 
@@ -297,9 +359,10 @@ select:focus {
 
 .reel img {
   width: 100%;
-  height: 130px;
+  height: 150px;
   object-fit: contain;
   display: block;
+  padding: 10px;
 }
 
 .overlay {
@@ -311,12 +374,13 @@ select:focus {
   pointer-events: none;
   z-index: 10;
   object-fit: cover;
+  border-radius: 15px;
 }
 
 /* SINGLE REEL MODE */
 .reel-container.single {
-  width: 280px;
-  height: 280px;
+  width: 300px;
+  height: 300px;
   margin: 0 auto;
 }
 
@@ -327,10 +391,10 @@ select:focus {
   border-radius: 15px;
 }
 
-/* TABS SECTION */
+/* TABS SECTION - FIXED TO SHOW ALL CONTENT */
 .tabs-wrapper {
   display: none;
-  margin-top: 30px;
+  margin-top: 40px;
   width: 100%;
 }
 
@@ -339,43 +403,48 @@ select:focus {
 }
 
 .wrapper {
-  width: min(95%, 550px);
-  margin: 30px auto;
+  width: min(95%, 600px);
+  margin: 40px auto;
   padding: 0 20px;
+  position: relative;
 }
 
 .tabs-section [type="radio"] {
   display: none;
 }
 
-/* TAB LABELS - FIXED: removed white-space: nowrap */
+/* TAB LABELS - PROPERLY ON ONE LINE */
 .tabs-section {
   position: relative;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow-x: hidden;
   padding-bottom: 5px;
-  -webkit-overflow-scrolling: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 .tabs-section label {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 20px;
-  background: #972525;
-  color: #ffe6e9;
+  padding: 16px 25px;
+  background: linear-gradient(to bottom, #972525, #be3838);
+  color: #FFD700;
   cursor: pointer;
   font-weight: bold;
-  border-radius: 0.5em;
+  border-radius: 10px 10px 0 0;
   position: relative;
-  border: 1.5px solid #000;
+  border: 2px solid #000;
+  border-bottom: none;
   white-space: nowrap;
-  font-size: 1rem;
-  margin-right: 4px;
+  font-size: 1.1rem;
   z-index: 2;
   transition: all 0.3s ease;
-  min-width: 120px;
+  min-width: 140px;
   flex-shrink: 0;
+  font-family: "Diphylleia", serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .tabs-section label span {
@@ -391,46 +460,51 @@ select:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 0.4em 0.4em 0 0;
-  background: #be3838;
-  border: 1.5px solid #000;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(to bottom, #be3838, #972525);
+  border: 2px solid #000;
   border-bottom: none;
-  transform: perspective(120px) rotateX(18deg);
+  transform: perspective(120px) rotateX(20deg);
   z-index: 1;
 }
 
+/* FIXED: Current tab background matches content box background */
 .tabs-section [type="radio"]:checked + label {
-  background: #be3838;
+  background: white !important;
+  color: #be3838 !important;
 }
 
 .tabs-section [type="radio"]:checked + label::after {
-  background: #ffffff;
+  background: white !important;
   z-index: 2;
 }
 
 .tabs-section [type="radio"]:checked + label span {
   color: #be3838;
   z-index: 3;
+  font-weight: bold;
 }
 
-/* CONTENT BOX - FIXED TEXT WRAPPING */
+/* CONTENT BOX */
 .tabs-content {
   position: relative;
-  border: 2.5px solid #000;
-  border-radius: 5px;
-  background: #ffffff;
+  border: 3px solid #000;
+  border-radius: 0 0 10px 10px;
+  background: white;
   color: #000;
-  padding: 25px;
-  min-height: 250px;
-  max-height: 400px;
+  padding: 30px;
+  min-height: 300px;
+  max-height: 500px;
   overflow-y: auto;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
   margin-top: -4px;
   z-index: 1;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  /* FIXED: Proper text wrapping */
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.2),
+    inset 0 0 20px rgba(190, 56, 56, 0.1);
+  font-family: "Diphylleia", serif;
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -440,14 +514,12 @@ select:focus {
 .tabs-content section {
   display: none;
   width: 100%;
-  /* FIXED: Ensure text wraps inside sections */
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
   white-space: normal !important;
 }
 
-/* FIXED: Force all child elements to wrap */
 .tabs-content * {
   white-space: normal !important;
   word-wrap: break-word !important;
@@ -466,333 +538,134 @@ select:focus {
 
 /* SCROLLBAR */
 .tabs-content::-webkit-scrollbar {
-  width: 10px;
+  width: 12px;
 }
 
 .tabs-content::-webkit-scrollbar-track {
   background: #fff;
-  border-radius: 5px;
+  border-radius: 6px;
+  border: 2px solid #be3838;
 }
 
 .tabs-content::-webkit-scrollbar-thumb {
-  background: #ffe6e9;
-  border-radius: 5px;
-  border: 3px solid #fff;
+  background: linear-gradient(to bottom, #be3838, #972525);
+  border-radius: 6px;
+  border: 2px solid #fff;
 }
 
 .tabs-content {
   scrollbar-width: thin;
-  scrollbar-color: #ffe6e9 #fff;
+  scrollbar-color: #be3838 #fff;
 }
 
-/* RESPONSIVE DESIGN - TABLETS */
+/* NEW YEAR MESSAGE - SMALLER AND AT BOTTOM */
+.new-year-message {
+  font-family: "Diphylleia", serif;
+  font-size: 1.2rem; /* SMALLER FONT */
+  color: gold;
+  text-align: center;
+  margin: 30px 0 10px 0;
+  padding: 10px;
+  background: rgba(190, 56, 56, 0.8);
+  border-radius: 10px;
+  border: 2px solid gold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* CHINESE CHARACTER STYLING - NOW USING DIPHYLLEA */
+.chinese-char {
+  font-family: "Diphylleia", serif;
+  font-size: 1.2em;
+  margin: 0 3px;
+}
+
+/* LUCKY SECTION */
+.lucky-section {
+  background: rgba(255, 215, 0, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 0;
+  border-left: 4px solid gold;
+}
+
+/* RESPONSIVE DESIGN */
 @media screen and (max-width: 768px) {
-  html {
-    font-size: 15px;
-  }
-  
-  .lanterns-wrapper {
-    gap: 10px;
-    padding: 0 15px;
-  }
-  
-  .lantern {
-    width: 60px;
-    height: 102px;
-  }
-  
-  .content-wrapper {
-    min-width: 280px;
-    max-width: 350px;
-  }
-  
-  select {
-    min-width: 85px;
-    padding: 10px 12px;
-    font-size: 0.95rem;
-    max-width: 100px;
-  }
-  
-  #spinButton {
-    padding: 15px 25px;
-    font-size: 1.1rem;
-    max-width: 280px;
-  }
-  
-  #spinButton .gold {
-    font-size: 1.2rem;
-  }
-  
-  .reel-container {
-    width: 110px;
-    height: 110px;
-  }
-  
-  .reel img {
-    height: 110px;
-  }
-  
-  .reel-container.single {
-    width: 220px;
-    height: 220px;
-  }
-  
-  .tabs-section label {
-    padding: 10px 16px;
-    font-size: 0.95rem;
-    min-width: 100px;
-    margin-right: 2px;
-  }
-  
-  .tabs-content {
-    padding: 20px;
-    font-size: 0.95em;
-  }
-}
-
-/* RESPONSIVE DESIGN - PHONES */
-@media screen and (max-width: 480px) {
   html {
     font-size: 14px;
   }
   
-  body {
-    padding: 5px;
-  }
-  
-  .lanterns-container {
-    margin: 15px 0 20px 0;
-  }
-  
-  .lanterns-wrapper {
-    flex-wrap: nowrap;
-    gap: 8px;
-    padding: 0 10px;
-    justify-content: space-between;
-    width: 100%;
-  }
-  
   .lantern {
-    width: 45px;
-    height: 76px;
-  }
-  
-  .content-wrapper {
-    order: 0;
-    width: auto;
-    max-width: 260px;
-    min-width: 200px;
-    padding: 0 5px;
-    flex: 1;
+    width: 70px;
+    height: 119px;
   }
   
   .content-box {
-    width: 100%;
-  }
-  
-  .dropdowns {
-    flex-direction: row;
-    gap: 6px;
+    padding: 20px;
   }
   
   select {
-    flex: 1;
-    min-width: 0;
-    padding: 8px;
-    font-size: 0.9rem;
-    max-width: none;
+    min-width: 90px;
+    padding: 12px;
+    font-size: 1rem;
+    max-width: 110px;
   }
   
   #spinButton {
-    padding: 12px 20px;
-    font-size: 1rem;
-    max-width: 240px;
+    padding: 18px 30px;
+    font-size: 1.3rem;
+    max-width: 300px;
   }
   
   #spinButton .gold {
-    font-size: 1.1rem;
-  }
-  
-  #reels {
-    gap: 15px;
-    margin: 30px auto;
+    font-size: 1.5rem;
   }
   
   .reel-container {
-    width: 90px;
-    height: 90px;
+    width: 120px;
+    height: 120px;
   }
   
   .reel img {
-    height: 90px;
+    height: 120px;
   }
   
   .reel-container.single {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
   }
   
-  .wrapper {
-    width: 100%;
-    padding: 0 10px;
-  }
-  
-  .tabs-section label {
-    padding: 8px 12px;
-    font-size: 0.85rem;
-    min-width: 80px;
-    margin-right: 1px;
-  }
-  
-  .tabs-content {
-    padding: 15px;
-    min-height: 200px;
-    font-size: 0.9em;
-  }
-}
-
-/* RESPONSIVE DESIGN - SMALL PHONES */
-@media screen and (max-width: 360px) {
-  .lantern {
-    width: 40px;
-    height: 68px;
-  }
-  
-  .content-wrapper {
-    min-width: 180px;
-    max-width: 200px;
-  }
-  
-  select {
-    padding: 6px 8px;
-    font-size: 0.85rem;
-  }
-  
-  #spinButton {
-    padding: 10px 16px;
-    font-size: 0.95rem;
-    max-width: 220px;
-  }
-  
-  .reel-container {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .reel img {
-    height: 80px;
-  }
-  
-  .reel-container.single {
-    width: 180px;
-    height: 180px;
+  .tabs-section {
+    justify-content: center;
+    gap: 3px;
   }
   
   .tabs-section label {
-    padding: 6px 10px;
-    font-size: 0.8rem;
-    min-width: 70px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    min-width: 110px;
+    flex-shrink: 0;
   }
   
   .tabs-content {
-    padding: 12px;
-    font-size: 0.85em;
+    padding: 25px;
+  }
+  
+  .new-year-message {
+    font-size: 1rem;
+    margin: 20px 0 10px 0;
+    padding: 8px;
   }
 }
 
-/* VERY SMALL PHONES */
-@media screen and (max-width: 320px) {
-  .lantern {
-    width: 35px;
-    height: 60px;
-  }
-  
-  .content-wrapper {
-    min-width: 160px;
-    max-width: 180px;
-  }
-  
-  .dropdowns {
-    flex-wrap: wrap;
-  }
-  
-  select {
-    min-width: 50px;
-    font-size: 0.8rem;
-    padding: 5px;
-  }
-}
-
-/* LANDSCAPE MODE */
-@media screen and (max-height: 500px) and (orientation: landscape) {
-  body {
-    padding: 5px;
-  }
-  
-  #title-img {
-    max-width: 300px;
-    margin: 5px auto 10px auto;
-  }
-  
-  .lanterns-container {
-    min-height: 80px;
-    margin: 10px 0;
-  }
-  
-  .lantern {
-    width: 45px;
-    height: 76px;
-  }
-  
-  #reels {
-    margin: 20px auto;
-  }
-  
-  .reel-container {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .reel img {
-    height: 80px;
-  }
-  
-  .tabs-wrapper {
-    margin-top: 15px;
-  }
-  
-  .tabs-content {
-    min-height: 180px;
-    max-height: 250px;
-    padding: 15px;
-    font-size: 0.9em;
-  }
-}
-
-/* TOUCH DEVICE OPTIMIZATIONS */
-@media (hover: none) and (pointer: coarse) {
-  #spinButton:hover {
-    transform: none;
-  }
-  
-  #spinButton:hover::before {
-    transform: translate3d(0, 8px, -8px);
-  }
-  
-  select {
-    min-height: 48px;
-  }
-  
+@media screen and (max-width: 480px) {
   .tabs-section label {
-    min-height: 48px;
+    min-width: 100px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
   }
   
-  #spinButton:active {
-    transform: translateY(8px);
-  }
-  
-  #spinButton:active::before {
-    transform: translate3d(0, 0, -8px);
+  .tabs-content {
+    padding: 20px;
   }
 }
 </style>
@@ -800,6 +673,7 @@ select:focus {
 <body>
 <div class="main-container">
 
+  <!-- TITLE IMAGE ONLY -->
   <img id="title-img" src="images/title.apng" alt="Chinese Zodiac Slot Machine">
 
   <div class="lanterns-container">
@@ -817,7 +691,7 @@ select:focus {
               <select id="year" aria-label="Birth year"></select>
             </div>
             <button id="spinButton" onclick="startSpin()" aria-label="Get my zodiac sign">
-              <span class="gold">Get My Zodiac!</span>
+              <span class="gold">Discover My Zodiac!</span>
             </button>
           </div>
         </div>
@@ -854,10 +728,10 @@ select:focus {
         <label for="tab1"><span>General Info</span></label>
 
         <input type="radio" name="tab" id="tab2">
-        <label for="tab2"><span>History</span></label>
+        <label for="tab2"><span>Legend Story</span></label>
 
         <input type="radio" name="tab" id="tab3">
-        <label for="tab3"><span>Elements</span></label>
+        <label for="tab3"><span>Elements & Years</span></label>
 
         <input type="radio" name="tab" id="tab4">
         <label for="tab4"><span>Famous People</span></label>
@@ -872,6 +746,11 @@ select:focus {
     </div>
   </div>
 
+  <!-- NEW YEAR MESSAGE AT BOTTOM - SMALLER -->
+  <div class="new-year-message">
+    Gōngxǐ fācái • Xīnnián kuàilè • Good Fortune & Happiness
+  </div>
+
 </div> <!-- end .main-container -->
 
 <script>
@@ -879,22 +758,237 @@ select:focus {
 let originalReelsHTML = null;
 let isSpinning = false;
 
+// ---------------- AUTHENTIC CHINESE CULTURAL DATA ----------------
+
+// Chinese greetings and phrases
+const chineseGreetings = [
+  "Gōngxǐ fācái (恭喜發財) - Wishing you prosperity",
+  "Xīnnián kuàilè (新年快樂) - Happy New Year",
+  "Jíxiáng rúyì (吉祥如意) - Good luck and happiness",
+  "Wànshì rúyì (萬事如意) - May all your wishes come true",
+  "Shēntǐ jiànkāng (身體健康) - Good health",
+  "Niánnián yǒuyú (年年有餘) - Abundance year after year"
+];
+
+// Chinese directions and hours
+const chineseHours = {
+  "Rat": "11 PM - 1 AM (子時 - Zishi)",
+  "Ox": "1 AM - 3 AM (丑時 - Choushi)",
+  "Tiger": "3 AM - 5 AM (寅時 - Yinshi)",
+  "Rabbit": "5 AM - 7 AM (卯時 - Maoshi)",
+  "Dragon": "7 AM - 9 AM (辰時 - Chenshi)",
+  "Snake": "9 AM - 11 AM (巳時 - Sishi)",
+  "Horse": "11 AM - 1 PM (午時 - Wushi)",
+  "Goat": "1 PM - 3 PM (未時 - Weishi)",
+  "Monkey": "3 PM - 5 PM (申時 - Shenshi)",
+  "Rooster": "5 PM - 7 PM (酉時 - Youshi)",
+  "Dog": "7 PM - 9 PM (戌時 - Xushi)",
+  "Pig": "9 PM - 11 PM (亥時 - Haishi)"
+};
+
+// Lucky numbers, colors, flowers, and directions - WITH MEANINGS
+const luckyData = {
+  "Rat": { 
+    numbers: [2, 3], 
+    colors: ["Blue (calm)", "Gold (wealth)", "Green (growth)"], 
+    flowers: ["Lily (purity & wealth)", "African Violet (elegance)", "Lily of the Valley (sweetness)"],
+    directions: ["Northeast (career luck)", "Due West (relationship luck)", "Southwest (health luck)"],
+    bestWith: ["Dragon", "Monkey", "Ox"], 
+    avoid: ["Horse", "Goat"]
+  },
+  "Ox": { 
+    numbers: [1, 4, 6], 
+    colors: ["Yellow (stability)", "Green (harmony)"], 
+    flowers: ["Peony (wealth & honor)", "Tulip (perfect love)", "Plum Blossom (resilience)"],
+    directions: ["Due North (career success)", "Southeast (wealth luck)"],
+    bestWith: ["Rat", "Rooster", "Snake"], 
+    avoid: ["Goat", "Horse"]
+  },
+  "Tiger": { 
+    numbers: [1, 3, 4], 
+    colors: ["Blue (trust)", "Gray (balance)", "White (purity)"], 
+    flowers: ["Orchid (nobility)", "Anthurium (hospitality)", "Azalea (passion)"],
+    directions: ["Northeast (power)", "Due South (fame)", "Northwest (helpful people)"],
+    bestWith: ["Horse", "Dog", "Pig"], 
+    avoid: ["Monkey", "Snake"]
+  },
+  "Rabbit": { 
+    numbers: [3, 4, 6], 
+    colors: ["Red (vitality)", "Pink (romance)", "Purple (spirituality)"], 
+    flowers: ["Jasmine (friendship)", "Lotus (purity)", "Osmanthus (success)"],
+    directions: ["Due East (health)", "Southeast (wealth)", "Due South (recognition)"],
+    bestWith: ["Goat", "Pig", "Dog"], 
+    avoid: ["Rooster", "Rat"]
+  },
+  "Dragon": { 
+    numbers: [1, 6, 7], 
+    colors: ["Gold (success)", "Silver (intuition)", "Grayish White (purity)"], 
+    flowers: ["Clerodendrum (dragon's power)", "Cactus Flower (protection)", "Gladiolus (strength)"],
+    directions: ["Due East (growth)", "Southeast (prosperity)", "Due North (career)"],
+    bestWith: ["Rat", "Monkey", "Rooster"], 
+    avoid: ["Dog", "Rabbit"]
+  },
+  "Snake": { 
+    numbers: [2, 8, 9], 
+    colors: ["Black (mystery)", "Red (passion)", "Yellow (wisdom)"], 
+    flowers: ["Orchid (refinement)", "Red Rose (love)", "Cactus (protection)"],
+    directions: ["Southeast (wisdom)", "South (passion)", "Southwest (relationships)"],
+    bestWith: ["Rooster", "Ox", "Monkey"], 
+    avoid: ["Pig", "Tiger"]
+  },
+  "Horse": { 
+    numbers: [2, 3, 7], 
+    colors: ["Yellow (optimism)", "Green (growth)", "Brown (stability)"], 
+    flowers: ["Carnation (energy)", "Chrysanthemum (longevity)", "Sunflower (happiness)"],
+    directions: ["South (recognition)", "Southwest (romance)", "West (creativity)"],
+    bestWith: ["Tiger", "Goat", "Dog"], 
+    avoid: ["Rat", "Ox"]
+  },
+  "Goat": { 
+    numbers: [2, 7], 
+    colors: ["Green (peace)", "Red (vitality)", "Purple (spirituality)"], 
+    flowers: ["Carnation (love)", "Gladiolus (integrity)", "Primrose (youthfulness)"],
+    directions: ["Southwest (relationships)", "West (creativity)", "Northwest (helpful people)"],
+    bestWith: ["Rabbit", "Horse", "Pig"], 
+    avoid: ["Ox", "Rat"]
+  },
+  "Monkey": { 
+    numbers: [4, 9], 
+    colors: ["White (clarity)", "Gold (wealth)", "Blue (communication)"], 
+    flowers: ["Orchid (intelligence)", "Chrysanthemum (cheerfulness)", "Carnation (versatility)"],
+    directions: ["West (social luck)", "Northwest (opportunities)", "North (career)"],
+    bestWith: ["Dragon", "Rat", "Snake"], 
+    avoid: ["Tiger", "Pig"]
+  },
+  "Rooster": { 
+    numbers: [5, 7, 8], 
+    colors: ["Gold (success)", "Brown (reliability)", "Yellow (confidence)"], 
+    flowers: ["Gladiolus (strength)", "Cockscomb (vitality)", "Marigold (protection)"],
+    directions: ["West (creativity)", "Northwest (opportunities)", "South (recognition)"],
+    bestWith: ["Ox", "Snake", "Dragon"], 
+    avoid: ["Rabbit", "Dog"]
+  },
+  "Dog": { 
+    numbers: [3, 4, 9], 
+    colors: ["Red (passion)", "Green (growth)", "Purple (spirituality)"], 
+    flowers: ["Rose (loyalty)", "Chrysanthemum (honesty)", "Orchid (nobility)"],
+    directions: ["Northwest (helpful people)", "East (family)", "South (fame)"],
+    bestWith: ["Tiger", "Horse", "Rabbit"], 
+    avoid: ["Dragon", "Rooster"]
+  },
+  "Pig": { 
+    numbers: [2, 5, 8], 
+    colors: ["Yellow (optimism)", "Gray (balance)", "Brown (stability)"], 
+    flowers: ["Hydrangea (gratitude)", "Daisy (innocence)", "Calla Lily (beauty)"],
+    directions: ["North (career)", "Northeast (knowledge)", "South (social)"],
+    bestWith: ["Rabbit", "Goat", "Tiger"], 
+    avoid: ["Snake", "Monkey"]
+  }
+};
+
+// ---------------- COMBINED ZODIAC DATA ----------------
+const zodiacData = {
+  "Rat": {
+    story: "In the legendary Jade Emperor's race, the clever Rat hitched a ride on the diligent Ox's back. Just before the finish line, the Rat jumped ahead to claim first place. In Chinese culture, Rats symbolize intelligence, adaptability, and wealth accumulation. People born in Rat years are quick-witted, resourceful, and possess strong survival instincts. They excel in business and are known for their charming personalities.",
+    culturalSignificance: "Rats are associated with wealth in Chinese culture. The expression 'money rat' refers to someone skilled at accumulating wealth. Rat hours (11 PM - 1 AM) mark the beginning of a new day in traditional timekeeping.",
+    bestMatches: "Best matches: Dragon, Monkey, Ox",
+    worstMatches: "Avoid: Horse, Goat"
+  },
+  
+  "Ox": {
+    story: "The Ox finished second in the race due to its steady, reliable pace. In ancient China, the Ox was revered as a sacred animal and essential for agriculture. Oxen represent diligence, strength, and dependability. Those born in Ox years are patient, methodical, and possess strong moral character. They are the backbone of society—hardworking, trustworthy, and capable of bearing great responsibility without complaint.",
+    culturalSignificance: "The Ox is central to agricultural life and represents spring planting. Oxen are honored during the Spring Plowing Ceremony. Their hardworking nature made them symbols of perseverance in Confucian philosophy.",
+    bestMatches: "Best matches: Rat, Rooster, Snake",
+    worstMatches: "Avoid: Goat, Horse"
+  },
+  
+  "Tiger": {
+    story: "The powerful Tiger finished third, roaring across the finish line. In Chinese mythology, the Tiger is king of the mountain and protects against evil spirits. Tigers symbolize bravery, power, and unpredictability. Tiger-year individuals are natural leaders—courageous, competitive, and passionate. They command respect but can be impulsive. The Tiger's third-place finish reflects its tendency to act first and think later.",
+    culturalSignificance: "Tigers protect against three main disasters: fire, thieves, and ghosts. Tiger shoes were traditionally worn by children for protection. The White Tiger is one of the Four Symbols of Chinese constellations.",
+    bestMatches: "Best matches: Horse, Dog, Pig",
+    worstMatches: "Avoid: Monkey, Snake"
+  },
+  
+  "Rabbit": {
+    story: "The gentle Rabbit crossed the river by hopping skillfully from stone to stone. In Chinese folklore, the Rabbit lives on the moon with the Moon Goddess Chang'e, pounding the elixir of immortality. Rabbits represent grace, diplomacy, and longevity. Rabbit-year people are elegant, peaceful, and articulate. They avoid conflict and possess keen artistic sensibilities. Their fourth-place finish shows their careful, calculated approach.",
+    culturalSignificance: "The Jade Rabbit pounds medicinal herbs on the moon. Rabbit symbolizes the moon (yin) while Rooster symbolizes the sun (yang). Rabbit charms promote longevity and peace.",
+    bestMatches: "Best matches: Goat, Pig, Dog",
+    worstMatches: "Avoid: Rooster, Rat"
+  },
+  
+  "Dragon": {
+    story: "Despite its ability to fly, the Dragon came fifth because it stopped to create rain for drought-stricken villages. The Dragon is the only mythical creature in the zodiac and symbolizes imperial power, success, and good fortune. Dragon-year individuals are charismatic, ambitious, and destined for greatness. They are natural innovators but can be arrogant. The Dragon's delay reflects its sense of responsibility toward others.",
+    culturalSignificance: "The Dragon represents yang energy and imperial authority. Dragons control water and weather. The nine sons of the dragon appear throughout Chinese architecture as protective figures.",
+    bestMatches: "Best matches: Rat, Monkey, Rooster",
+    worstMatches: "Avoid: Dog, Rabbit"
+  },
+  
+  "Snake": {
+    story: "The Snake quietly crossed the river by wrapping around the Horse's leg, startling it at the last moment. In Chinese tradition, the Snake represents wisdom, mystery, and rebirth (shedding skin). Snake-year people are philosophical, intuitive, and possess deep intelligence. They appear calm but are fiercely determined. Their sixth-place finish demonstrates their strategic patience—striking at the perfect moment.",
+    culturalSignificance: "Also called 'Little Dragon,' the Snake represents wisdom and feminine energy. In some regions, it's considered lucky to dream of snakes, indicating coming wealth or pregnancy.",
+    bestMatches: "Best matches: Rooster, Ox, Monkey",
+    worstMatches: "Avoid: Pig, Tiger"
+  },
+  
+  "Horse": {
+    story: "The fast Horse nearly won but was startled when the Snake revealed itself. Horses symbolize freedom, energy, and travel. Horse-year individuals are independent, cheerful, and popular in social circles. They possess great physical energy and love adventure but can be impatient. The Horse's seventh-place finish reflects how their impulsiveness sometimes undermines their natural advantages.",
+    culturalSignificance: "Horses symbolize speed and success. The 'heavenly horse' was believed to carry souls to immortality. Horse statues face outward from buildings to carry away bad luck.",
+    bestMatches: "Best matches: Tiger, Goat, Dog",
+    worstMatches: "Avoid: Rat, Ox"
+  },
+  
+  "Goat": {
+    story: "The peaceful Goat crossed the river calmly, helping others along the way. In Chinese culture, the Goat symbolizes harmony, creativity, and gentleness. Goat-year people are artistic, compassionate, and seek peaceful environments. They excel in creative fields but can be indecisive. Their eighth-place finish shows their tendency to prioritize others' needs over their own success.",
+    culturalSignificance: "The Goat's gentle nature represents filial piety. The character for 'beauty' combines 'sheep' and 'big.' Goats symbolize peace and are often depicted in pastoral art.",
+    bestMatches: "Best matches: Rabbit, Horse, Pig",
+    worstMatches: "Avoid: Ox, Rat"
+  },
+  
+  "Monkey": {
+    story: "The clever Monkey used vines to swing across the river. Monkeys symbolize intelligence, playfulness, and problem-solving. Monkey-year individuals are witty, inventive, and excel at turning difficult situations to their advantage. They are natural entertainers but can be mischievous. Their ninth-place finish demonstrates their unconventional approach—they find creative shortcuts rather than following traditional paths.",
+    culturalSignificance: "The Monkey King Sun Wukong from Journey to the West embodies rebellion and cleverness. Monkeys represent adaptability and are considered lucky in business ventures.",
+    bestMatches: "Best matches: Dragon, Rat, Snake",
+    worstMatches: "Avoid: Tiger, Pig"
+  },
+  
+  "Rooster": {
+    story: "The Rooster built a raft to cross but stopped to help others. Roosters symbolize punctuality, honesty, and flamboyance. Rooster-year people are organized, hardworking, and take pride in their appearance. They are perfectionists who speak directly but can be critical. Their tenth-place finish reflects their sense of duty—they help others even at personal cost.",
+    culturalSignificance: "Roosters symbolize the sun and honesty. Their crow dispels darkness and evil. The five virtues: literary, martial, courageous, benevolent, and trustworthy.",
+    bestMatches: "Best matches: Ox, Snake, Dragon",
+    worstMatches: "Avoid: Rabbit, Dog"
+  },
+  
+  "Dog": {
+    story: "The loyal Dog was busy playing in the water and ensuring everyone's safety. Dogs represent loyalty, justice, and protection. Dog-year individuals are honest, faithful, and have strong moral principles. They make excellent friends and protectors but can be pessimistic. Their eleventh-place finish shows their selfless nature—they prioritize community safety over personal victory.",
+    culturalSignificance: "Dogs represent earth energy and loyalty. The heavenly dog was thought to cause eclipses by eating the sun/moon. Dog sacrifices were made to ensure good harvests.",
+    bestMatches: "Best matches: Tiger, Horse, Rabbit",
+    worstMatches: "Avoid: Dragon, Rooster"
+  },
+  
+  "Pig": {
+    story: "The Pig arrived last after stopping to eat and rest. In Chinese culture, the Pig symbolizes generosity, diligence, and abundance. Pig-year people are sincere, tolerant, and enjoy life's pleasures. They are reliable friends with good financial sense but can be naive. Their twelfth-place finish reflects their contented nature—they appreciate the journey as much as the destination.",
+    culturalSignificance: "The Pig represents the end of the agricultural cycle and abundance. Piggy banks originated from this association with wealth. In some dialects, 'pig' is used affectionately for loved ones.",
+    bestMatches: "Best matches: Rabbit, Goat, Tiger",
+    worstMatches: "Avoid: Snake, Monkey"
+  }
+};
+
 // ---------------- ACCURATE CHINESE ZODIAC DATA ----------------
 const animals = ["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"];
 const chineseSymbol = { Rat:'鼠', Ox:'牛', Tiger:'虎', Rabbit:'兔', Dragon:'龍', Snake:'蛇', Horse:'馬', Goat:'羊', Monkey:'猴', Rooster:'雞', Dog:'狗', Pig:'豬' };
 const elements = ["Wood","Fire","Earth","Metal","Water"];
 const elementChinese = { Wood:'木', Fire:'火', Earth:'土', Metal:'金', Water:'水' };
 
-// ELEMENT COLORS - DIFFERENT COLORS FOR EACH ELEMENT
+// ELEMENT COLORS
 const elementColors = {
-  "Wood": "#D2AB6F",  // Light green
-  "Fire": "#ffebee",  // Light red
-  "Earth": "#bec991", // Light orange
-  "Metal": "#C0C0C0", // Light gray
-  "Water": "#a3d0e8"  // Light blue
+  "Wood": "#F0E2C9",
+  "Fire": "#fffafb",
+  "Earth": "#E8EDD0",
+  "Metal": "#F0F0F0",
+  "Water": "#DEF0FA"
 };
 
-// UPDATED ELEMENTS DESCRIPTIONS - YOUR ELEMENT FIRST
+// UPDATED ELEMENTS DESCRIPTIONS
 const elementDescriptions = {
   "Wood": "Wood represents growth, creativity, and flexibility. Wood signs are visionary, idealistic, and able to see the big picture.",
   "Fire": "Fire represents passion, energy, and transformation. Fire signs are enthusiastic, dynamic, and natural leaders.",
@@ -903,23 +997,7 @@ const elementDescriptions = {
   "Water": "Water represents wisdom, intuition, and adaptability. Water signs are perceptive, empathetic, and deeply emotional."
 };
 
-// ADDED ZODIAC STORIES
-const zodiacStories = {
-  "Rat": "According to legend, the Rat won the race by riding on the Ox's back and jumping off at the finish line. Rats are clever, quick-witted, and resourceful.",
-  "Ox": "The Ox came in second place due to its steady, reliable nature. Oxen are hardworking, dependable, and strong.",
-  "Tiger": "The Tiger came in third, known for its courage and power. Tigers are brave, competitive, and confident.",
-  "Rabbit": "The Rabbit came in fourth by hopping across the river on stones. Rabbits are gentle, elegant, and alert.",
-  "Dragon": "The Dragon came in fifth despite being able to fly. Dragons are charismatic, intelligent, and confident.",
-  "Snake": "The Snake came in sixth, surprising the Horse by wrapping around its leg. Snakes are wise, intuitive, and mysterious.",
-  "Horse": "The Horse came in seventh, almost winning but was startled by the Snake. Horses are energetic, independent, and free-spirited.",
-  "Goat": "The Goat came in eighth by crossing the river peacefully. Goats are creative, peaceful, and empathetic.",
-  "Monkey": "The Monkey came in ninth by using its intelligence to cross. Monkeys are clever, lively, and inventive.",
-  "Rooster": "The Rooster came in tenth after helping others cross. Roosters are observant, hardworking, and courageous.",
-  "Dog": "The Dog came in eleventh as it was busy playing in the water. Dogs are loyal, honest, and dependable.",
-  "Pig": "The Pig came in twelfth after stopping to eat and rest. Pigs are diligent, generous, and compassionate."
-};
-
-// CORRECTED ZODIAC YEARS BASED ON TRADITIONAL CHINESE CALENDAR
+// CORRECTED ZODIAC YEARS
 const zodiacYears = {
   "Rat": { 
     "Wood":[1924,1984,2044],
@@ -1007,6 +1085,7 @@ const zodiacYears = {
   }
 };
 
+// FIXED: Famous People with correct pluralization
 const famousPeople = {
   "Rat": ["George Washington: born on February 22, 1732, a Water Rat 鼠", "Wolfgang Amadeus Mozart: born on January 27, 1756, a Fire Rat 鼠", "Samuel L. Jackson: born on December 21, 1948, an Earth Rat 鼠", "Avril Lavigne: born on September 27, 1984, a Wood Rat 鼠", "Tom Holland: born on June 1, 1996, a Fire Rat 鼠"],
   "Ox": ["Barack Obama: born on August 4, 1961, a Metal Ox 牛", "Vincent Van Gogh: born on March 30, 1853, a Water Ox 牛", "Walt Disney: born on December 5, 1901, a Metal Ox 牛", "Meryl Streep: born on June 22, 1949, an Earth Ox 牛"],
@@ -1022,6 +1101,16 @@ const famousPeople = {
   "Pig": ["Barbra Streisand: born on April 24, 1942, a Water Pig 豬", "Henry Cavill: born on May 5, 1983, a Water Pig 豬", "Cristiano Ronaldo: born on February 5, 1985, a Wood Pig 豬", "Jackie Chan: born on April 7, 1954, a Wood Pig 豬", "Bad Bunny: born on March 10, 1994, a Wood Pig 豬", "Daniel Radcliffe: born on July 23, 1989, an Earth Pig 豬", "Lucy Liu: born on December 2, 1968, an Earth Pig 豬"]
 };
 
+/* ---------------- HELPER FUNCTION TO ADD CHINESE CHARACTER ---------------- */
+function addChineseCharacter(animal) {
+  return `${animal} <span class="chinese-char">${chineseSymbol[animal]}</span>`;
+}
+
+/* ---------------- HELPER FUNCTION TO GET RANDOM GREETING ---------------- */
+function getRandomGreeting() {
+  return chineseGreetings[Math.floor(Math.random() * chineseGreetings.length)];
+}
+
 /* ---------------- INIT DROPDOWNS ---------------- */
 function initBirthdayDropdowns(){
   const month = document.getElementById("month");
@@ -1029,7 +1118,7 @@ function initBirthdayDropdowns(){
   const year = document.getElementById("year");
   
   // Months
-  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
   months.forEach((m, i) => {
     const option = new Option(m, i + 1);
     month.add(option);
@@ -1061,7 +1150,7 @@ function getUserZodiacFromDropdown(){
   const d = parseInt(document.getElementById("day").value);
   
   if (isNaN(y)) {
-    return {animal: "Dragon", element: "Wood", year: 2024}; // Default to 2024 Wood Dragon
+    return {animal: "Dragon", element: "Wood", year: 2024};
   }
   
   const animalIndex = ((y - 1900) % 12 + 12) % 12;
@@ -1085,30 +1174,67 @@ function getUserZodiacFromDropdown(){
 
 /* ---------------- GENERATE TAB CONTENT ---------------- */
 function generateZodiacText(animal, element, year){
-  // 1. Generate General Info - SIMPLIFIED WITHOUT YEARS
+  // Create the animal with Chinese character
+  const animalWithChinese = addChineseCharacter(animal);
+  const elementWithChinese = `${element} <span class="chinese-char">${elementChinese[element]}</span>`;
+  
+  // Get lucky data
+  const lucky = luckyData[animal];
+  const hours = chineseHours[animal];
+  
+  // Get a random greeting
+  const greeting = getRandomGreeting();
+  
+  // 1. Generate General Info - ENHANCED WITH LUCKY DATA INCLUDING FLOWERS AND DIRECTIONS
   let generalText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
-                <strong>Your Zodiac: ${element} ${animal} ${chineseSymbol[animal]} (${year})</strong>
+                <strong>Your Zodiac: ${elementWithChinese} ${animalWithChinese} (${year})</strong>
               </div>
               <hr style="border: none; height: 1px; background-color: #972525; margin: 10px 0;">
               <div style="font-size: 0.95em; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
                 <strong>Personality Traits:</strong><br>
-                ${zodiacStories[animal].split('. ')[1] || 'This zodiac sign has unique characteristics and traits.'}
+                ${zodiacData[animal].story.split('. ').slice(1).join('. ')}
+                
+                <div class="lucky-section">
+                  <strong>🗓️ Chinese Hour:</strong> ${hours}<br>
+                  <strong>🎯 Lucky Numbers:</strong> ${lucky.numbers.join(', ')}<br>
+                  <strong>🎨 Lucky Colors:</strong> ${lucky.colors.join(', ')}<br>
+                  <strong>🌸 Lucky Flowers:</strong> ${lucky.flowers.join(', ')}<br>
+                  <strong>🧭 Lucky Directions:</strong> ${lucky.directions.join(', ')}<br>
+                  <strong>❤️ Best Matches:</strong> ${lucky.bestWith.join(', ')}<br>
+                  <strong>⚠️ Avoid:</strong> ${lucky.avoid.join(', ')}
+                </div>
+                
+                <strong>Cultural Significance:</strong><br>
+                ${zodiacData[animal].culturalSignificance}
                 <br><br>
-                <em style="font-size: 0.85em; color: #666;">Note: Chinese New Year falls between Jan 21-Feb 20.</em>
+                <div style="background: #FFF9C4; padding: 10px; border-radius: 6px; border-left: 4px solid gold;">
+                  <strong>🎊 Chinese Blessing:</strong> ${greeting}
+                </div>
+                <br>
+                <em style="font-size: 0.85em; color: #666;">Note: Chinese New Year falls between Jan 21-Feb 20. If born in Jan/Feb, you might be previous year's zodiac.</em>
               </div>`;
   
   // 2. Generate History content
   const storyText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
-            <strong>The History of the ${animal}</strong>
+            <strong>The Legend of the ${animalWithChinese}</strong>
           </div>
           <hr style="border: none; height: 1px; background-color: #972525; margin: 10px 0;">
           <div style="font-size: 0.95em; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
-            <p>${zodiacStories[animal]}</p>
+            <p>${zodiacData[animal].story}</p>
+            <br>
+            <div style="background: #fffafb; padding: 10px; border-radius: 6px; border-left: 4px solid #be3838;">
+              <strong>Cultural Insight:</strong><br>
+              ${zodiacData[animal].culturalSignificance}
+              <br><br>
+              <strong>Compatibility:</strong><br>
+              ${zodiacData[animal].bestMatches}<br>
+              ${zodiacData[animal].worstMatches}
+            </div>
           </div>`;
   
-  // 3. Generate Elements content - NOW WITH YEARS AND COLORED BACKGROUNDS
+  // 3. Generate Elements content
   let elementsText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
-                <strong>Chinese Zodiac Elements & Years for ${animal}</strong>
+                <strong>Chinese Zodiac Elements & Years for ${animalWithChinese}</strong>
               </div>
               <hr style="border: none; height: 1px; background-color: #972525; margin: 10px 0;">
               <div style="font-size: 0.95em; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">`;
@@ -1125,17 +1251,14 @@ function generateZodiacText(animal, element, year){
     const yearsForElement = zodiacYears[animal] && zodiacYears[animal][el] ? 
       zodiacYears[animal][el].filter(y => y <= 2100 && y >= 1900) : [];
     
-    // Get the color for this element
     const elementColor = elementColors[el];
-    // For current element, use pink background, otherwise use element-specific color
     const backgroundColor = isCurrent ? '#ffe6e9' : elementColor;
-    // For current element, use dark red border, otherwise use element-specific darker color
     const borderColor = isCurrent ? '#be3838' : getDarkerColor(elementColor);
     
     elementsText += `<div style="margin-bottom: 15px; padding: 10px; background: ${backgroundColor}; border-radius: 6px; border-left: 4px solid ${borderColor}; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
-              <strong>${el} ${elementChinese[el]}</strong><br>
+              <strong>${el} <span class="chinese-char">${elementChinese[el]}</span></strong><br>
               ${elementDescriptions[el]}<br><br>
-              <strong>${el} ${animal} Years:</strong><br>
+              <strong>${el} ${elementChinese[el]} ${animalWithChinese} Years:</strong><br>
               ${yearsForElement.length > 0 ? 
                 yearsForElement.join(', ') : 
                 'No years available for this element'}
@@ -1145,9 +1268,14 @@ function generateZodiacText(animal, element, year){
   
   elementsText += "</div>";
   
-  // 4. Generate Famous People content
+  // 4. Generate Famous People content - FIXED PLURALIZATION
+  const animalPlural = animal === "Ox" ? "Oxen" : 
+                      animal === "Goat" ? "Goats" :
+                      animal.endsWith("s") || animal.endsWith("x") || animal.endsWith("ch") || animal.endsWith("sh") ? 
+                      animal + "es" : animal + "s";
+  
   const famousText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
-            <strong>Famous ${animal}s</strong>
+            <strong>Famous ${animalPlural} ${chineseSymbol[animal]}</strong>
           </div>
           <hr style="border: none; height: 1px; background-color: #972525; margin: 10px 0;">
           <div style="font-size: 0.9em; line-height: 1.3; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
@@ -1163,15 +1291,14 @@ function generateZodiacText(animal, element, year){
 
 /* ---------------- HELPER FUNCTION FOR DARKER COLORS ---------------- */
 function getDarkerColor(hexColor) {
-  // Simple function to darken a hex color
   const colorMap = {
-    "#e8f5e9": "#D2AB6F", // Wood - darker green
-    "#ffebee": "#e57373", // Fire - darker red
-    "#fff3e0": "#ffb74d", // Earth - darker orange
-    "#f5f5f5": "#bdbdbd", // Metal - darker gray
-    "#e3f2fd": "#64b5f6"  // Water - darker blue
+    "#F0E2C9": "#8B6B2F",
+    "#fffafb": "#D32F2F",
+    "#E8EDD0": "#8B8D4A",
+    "#F0F0F0": "#808080",
+    "#DEF0FA": "#2E8BCC"
   };
-  return colorMap[hexColor] || "#972525"; // Default to red if not found
+  return colorMap[hexColor] || "#972525";
 }
 
 /* ---------------- INITIALIZE REELS ---------------- */
@@ -1364,7 +1491,7 @@ function startSpin(){
             setTimeout(() => {
               spinButton.disabled = false;
               spinButton.style.opacity = "1";
-              spinButton.innerHTML = '<span class="gold">Get My Zodiac!</span>';
+              spinButton.innerHTML = '<span class="gold">Discover My Zodiac!</span>';
               isSpinning = false;
             }, 500);
           };
