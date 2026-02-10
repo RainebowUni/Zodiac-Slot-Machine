@@ -562,11 +562,11 @@ select:focus {
 .new-year-message {
   font-family: "Diphylleia", serif;
   font-size: 1.2rem; /* SMALLER FONT */
-  color: gold;
+  color: rgb(255, 255, 255);
   text-align: center;
   margin: 30px 0 10px 0;
   padding: 10px;
-  background: rgba(190, 56, 56, 0.8);
+  background: #be3838;
   border-radius: 10px;
   border: 2px solid gold;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -757,6 +757,7 @@ select:focus {
 // Initialize variables at the top
 let originalReelsHTML = null;
 let isSpinning = false;
+let resultsShown = false; // NEW: Track if results are currently shown
 
 // ---------------- AUTHENTIC CHINESE CULTURAL DATA ----------------
 
@@ -1111,6 +1112,20 @@ function getRandomGreeting() {
   return chineseGreetings[Math.floor(Math.random() * chineseGreetings.length)];
 }
 
+/* ---------------- FUNCTION TO HIDE RESULTS ---------------- */
+function hideResults() {
+  const tabsWrapper = document.querySelector('.tabs-wrapper');
+  tabsWrapper.classList.remove('active');
+  resultsShown = false;
+  
+  // Reset to three reels if showing single
+  const reelsDiv = document.getElementById("reels");
+  if (!document.getElementById("reel1") && originalReelsHTML) {
+    reelsDiv.innerHTML = originalReelsHTML;
+    initReels();
+  }
+}
+
 /* ---------------- INIT DROPDOWNS ---------------- */
 function initBirthdayDropdowns(){
   const month = document.getElementById("month");
@@ -1141,6 +1156,11 @@ function initBirthdayDropdowns(){
   month.value = 1;
   day.value = 1;
   year.value = startYear;
+  
+  // ADD EVENT LISTENERS TO HIDE RESULTS WHEN DROPDOWNS CHANGE
+  month.addEventListener('change', hideResults);
+  day.addEventListener('change', hideResults);
+  year.addEventListener('change', hideResults);
 }
 
 /* ---------------- ZODIAC CALCULATION ---------------- */
@@ -1402,6 +1422,7 @@ function collapseToSingleSlot(animal){
     
     reels.style.opacity = "1";
     document.querySelector('.tabs-wrapper').classList.add('active');
+    resultsShown = true; // Mark that results are now shown
     
     // Scroll to tabs on mobile
     if (window.innerWidth < 768) {
