@@ -56,27 +56,32 @@ body {
   max-width: 100%;
 }
 
-/* LANTERNS CONTAINER - FIXED POSITION */
+/* LANTERNS CONTAINER - UPDATED */
 .lanterns-container {
   width: 100%;
   position: relative;
   margin: 20px 0 30px 0;
-  min-height: 180px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
-.lanterns-inner {
+.lanterns-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  position: relative;
-  gap: 20px;
   padding: 0 20px;
+}
+
+.lantern-left-container,
+.lantern-right-container {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 /* LANTERNS */
@@ -86,11 +91,9 @@ body {
   transform-origin: top center;
   animation: sway-left 5.5s ease-in-out infinite;
   flex-shrink: 0;
-  position: relative;
-  z-index: 1;
 }
 
-.lantern-right {
+.lantern-right-container .lantern {
   animation: sway-right 5.5s ease-in-out infinite;
 }
 
@@ -106,12 +109,18 @@ body {
   100% { transform: rotate(5deg); } 
 }
 
-/* CONTENT BOX (DROPDOWNS AND BUTTON) */
-.content-box {
+/* CONTENT WRAPPER */
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
   min-width: 300px;
   max-width: 400px;
-  position: relative;
-  z-index: 2;
+  padding: 0 20px;
+}
+
+.content-box {
+  width: 100%;
 }
 
 .dropdown-button-column {
@@ -318,7 +327,7 @@ select:focus {
   border-radius: 15px;
 }
 
-/* TABS SECTION - BACK TO ORIGINAL WORKING VERSION */
+/* TABS SECTION */
 .tabs-wrapper {
   display: none;
   margin-top: 30px;
@@ -339,10 +348,9 @@ select:focus {
   display: none;
 }
 
-/* TAB LABELS */
+/* TAB LABELS - FIXED: removed white-space: nowrap */
 .tabs-section {
   position: relative;
-  white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: 5px;
@@ -375,7 +383,7 @@ select:focus {
   z-index: 3;
 }
 
-/* 3D EFFECT - ORIGINAL STYLE */
+/* 3D EFFECT */
 .tabs-section label::after {
   content: '';
   position: absolute;
@@ -405,7 +413,7 @@ select:focus {
   z-index: 3;
 }
 
-/* FIXED CONTENT BOX - SEPARATE FROM TABS */
+/* CONTENT BOX - FIXED TEXT WRAPPING */
 .tabs-content {
   position: relative;
   border: 2.5px solid #000;
@@ -417,51 +425,43 @@ select:focus {
   max-height: 400px;
   overflow-y: auto;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   margin-top: -4px;
   z-index: 1;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  /* Ensure text stays within box */
+  /* FIXED: Proper text wrapping */
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: auto;
+  word-break: break-word;
+  white-space: normal !important;
 }
 
 .tabs-content section {
   display: none;
-  /* Ensure content fits */
-  width: 95%;
-  max-width: 95%;
-  box-sizing: content-box;
+  width: 100%;
+  /* FIXED: Ensure text wraps inside sections */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal !important;
 }
 
-/* Updated for 4 tabs - Changed tab2 to History */
+/* FIXED: Force all child elements to wrap */
+.tabs-content * {
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+  max-width: 100%;
+}
+
+/* Tab switching */
 #tab1:checked ~ .tabs-content #general,
 #tab2:checked ~ .tabs-content #story,
 #tab3:checked ~ .tabs-content #elements,
 #tab4:checked ~ .tabs-content #famous {
   display: block;
-}
-
-/* FIX CONTENT STYLES TO FIT IN BOX */
-.tabs-content div,
-.tabs-content p,
-.tabs-content strong,
-.tabs-content em {
-  max-width: 95%;
-  box-sizing: content-box;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-.tabs-content hr {
-  max-width: 95%;
-  box-sizing: content-box;
-}
-
-/* Ensure famous people list fits */
-.tabs-content div[style*="font-size: 0.9em"] {
-  font-size: 0.85em !important;
-  line-height: 1.3 !important;
 }
 
 /* SCROLLBAR */
@@ -491,11 +491,7 @@ select:focus {
     font-size: 15px;
   }
   
-  .lanterns-container {
-    min-height: 150px;
-  }
-  
-  .lanterns-inner {
+  .lanterns-wrapper {
     gap: 10px;
     padding: 0 15px;
   }
@@ -505,9 +501,9 @@ select:focus {
     height: 102px;
   }
   
-  .content-box {
+  .content-wrapper {
     min-width: 280px;
-    padding: 15px;
+    max-width: 350px;
   }
   
   select {
@@ -548,15 +544,9 @@ select:focus {
     margin-right: 2px;
   }
   
-  /* Adjust tab content for smaller screens */
   .tabs-content {
     padding: 20px;
     font-size: 0.95em;
-  }
-  
-  .tabs-content div[style*="font-size: 0.9em"] {
-    font-size: 0.8em !important;
-    line-height: 1.25 !important;
   }
 }
 
@@ -571,54 +561,52 @@ select:focus {
   }
   
   .lanterns-container {
-    min-height: 120px;
     margin: 15px 0 20px 0;
   }
   
-  .lanterns-inner {
-    flex-wrap: wrap;
-    gap: 15px;
+  .lanterns-wrapper {
+    flex-wrap: nowrap;
+    gap: 8px;
     padding: 0 10px;
+    justify-content: space-between;
+    width: 100%;
   }
   
   .lantern {
-    width: 50px;
-    height: 85px;
-    order: 1;
+    width: 45px;
+    height: 76px;
   }
   
-  .lantern-left {
-    order: 1;
-  }
-  
-  .lantern-right {
-    order: 3;
+  .content-wrapper {
+    order: 0;
+    width: auto;
+    max-width: 260px;
+    min-width: 200px;
+    padding: 0 5px;
+    flex: 1;
   }
   
   .content-box {
-    order: 2;
     width: 100%;
-    max-width: 320px;
-    padding: 15px;
   }
   
   .dropdowns {
     flex-direction: row;
-    gap: 8px;
+    gap: 6px;
   }
   
   select {
     flex: 1;
     min-width: 0;
-    padding: 10px;
+    padding: 8px;
     font-size: 0.9rem;
     max-width: none;
   }
   
   #spinButton {
-    padding: 14px 22px;
+    padding: 12px 20px;
     font-size: 1rem;
-    max-width: 260px;
+    max-width: 240px;
   }
   
   #spinButton .gold {
@@ -659,45 +647,31 @@ select:focus {
   .tabs-content {
     padding: 15px;
     min-height: 200px;
-    max-height: 350px;
     font-size: 0.9em;
-  }
-  
-  /* Adjust content for mobile */
-  .tabs-content div[style*="font-size: 1.1em"] {
-    font-size: 1em !important;
-  }
-  
-  .tabs-content div[style*="font-size: 0.95em"] {
-    font-size: 0.85em !important;
-  }
-  
-  .tabs-content div[style*="font-size: 0.9em"] {
-    font-size: 0.75em !important;
-    line-height: 1.2 !important;
   }
 }
 
 /* RESPONSIVE DESIGN - SMALL PHONES */
 @media screen and (max-width: 360px) {
   .lantern {
-    width: 45px;
-    height: 76px;
+    width: 40px;
+    height: 68px;
   }
   
-  .content-box {
-    padding: 12px;
+  .content-wrapper {
+    min-width: 180px;
+    max-width: 200px;
   }
   
   select {
-    padding: 8px;
+    padding: 6px 8px;
     font-size: 0.85rem;
   }
   
   #spinButton {
-    padding: 12px 20px;
+    padding: 10px 16px;
     font-size: 0.95rem;
-    max-width: 240px;
+    max-width: 220px;
   }
   
   .reel-container {
@@ -724,10 +698,28 @@ select:focus {
     padding: 12px;
     font-size: 0.85em;
   }
+}
+
+/* VERY SMALL PHONES */
+@media screen and (max-width: 320px) {
+  .lantern {
+    width: 35px;
+    height: 60px;
+  }
   
-  .tabs-content div[style*="font-size: 0.9em"] {
-    font-size: 0.7em !important;
-    line-height: 1.15 !important;
+  .content-wrapper {
+    min-width: 160px;
+    max-width: 180px;
+  }
+  
+  .dropdowns {
+    flex-wrap: wrap;
+  }
+  
+  select {
+    min-width: 50px;
+    font-size: 0.8rem;
+    padding: 5px;
   }
 }
 
@@ -743,13 +735,13 @@ select:focus {
   }
   
   .lanterns-container {
-    min-height: 100px;
+    min-height: 80px;
     margin: 10px 0;
   }
   
   .lantern {
-    width: 50px;
-    height: 85px;
+    width: 45px;
+    height: 76px;
   }
   
   #reels {
@@ -811,23 +803,29 @@ select:focus {
   <img id="title-img" src="images/title.apng" alt="Chinese Zodiac Slot Machine">
 
   <div class="lanterns-container">
-    <div class="lanterns-inner">
-      <img src="images/Lantern.png" class="lantern lantern-left" alt="Lantern">
+    <div class="lanterns-wrapper">
+      <div class="lantern-left-container">
+        <img src="images/Lantern.png" class="lantern" alt="Lantern">
+      </div>
       
-      <div class="content-box">
-        <div class="dropdown-button-column">
-          <div class="dropdowns">
-            <select id="month" aria-label="Birth month"></select>
-            <select id="day" aria-label="Birth day"></select>
-            <select id="year" aria-label="Birth year"></select>
+      <div class="content-wrapper">
+        <div class="content-box">
+          <div class="dropdown-button-column">
+            <div class="dropdowns">
+              <select id="month" aria-label="Birth month"></select>
+              <select id="day" aria-label="Birth day"></select>
+              <select id="year" aria-label="Birth year"></select>
+            </div>
+            <button id="spinButton" onclick="startSpin()" aria-label="Get my zodiac sign">
+              <span class="gold">Get My Zodiac!</span>
+            </button>
           </div>
-          <button id="spinButton" onclick="startSpin()" aria-label="Get my zodiac sign">
-            <span class="gold">Get My Zodiac!</span>
-          </button>
         </div>
       </div>
       
-      <img src="images/Lantern.png" class="lantern lantern-right" alt="Lantern">
+      <div class="lantern-right-container">
+        <img src="images/Lantern.png" class="lantern" alt="Lantern">
+      </div>
     </div>
   </div>
 
@@ -848,7 +846,7 @@ select:focus {
     </div>
   </div>
 
-  <!-- BACK TO SIMPLE WORKING STRUCTURE -->
+  <!-- TABS -->
   <div class="tabs-wrapper">
     <div class="wrapper">
       <section class="tabs-section">
@@ -887,6 +885,15 @@ const chineseSymbol = { Rat:'鼠', Ox:'牛', Tiger:'虎', Rabbit:'兔', Dragon:'
 const elements = ["Wood","Fire","Earth","Metal","Water"];
 const elementChinese = { Wood:'木', Fire:'火', Earth:'土', Metal:'金', Water:'水' };
 
+// ELEMENT COLORS - DIFFERENT COLORS FOR EACH ELEMENT
+const elementColors = {
+  "Wood": "#D2AB6F",  // Light green
+  "Fire": "#ffebee",  // Light red
+  "Earth": "#bec991", // Light orange
+  "Metal": "#C0C0C0", // Light gray
+  "Water": "#a3d0e8"  // Light blue
+};
+
 // UPDATED ELEMENTS DESCRIPTIONS - YOUR ELEMENT FIRST
 const elementDescriptions = {
   "Wood": "Wood represents growth, creativity, and flexibility. Wood signs are visionary, idealistic, and able to see the big picture.",
@@ -913,8 +920,6 @@ const zodiacStories = {
 };
 
 // CORRECTED ZODIAC YEARS BASED ON TRADITIONAL CHINESE CALENDAR
-// Note: Chinese New Year usually falls between Jan 21 - Feb 20, so birthdates 
-// before Chinese New Year belong to the previous year's zodiac
 const zodiacYears = {
   "Rat": { 
     "Wood":[1924,1984,2044],
@@ -1059,17 +1064,6 @@ function getUserZodiacFromDropdown(){
     return {animal: "Dragon", element: "Wood", year: 2024}; // Default to 2024 Wood Dragon
   }
   
-  // IMPORTANT: Chinese New Year adjustments
-  // Chinese New Year typically falls between Jan 21 - Feb 20
-  // If birthdate is before Chinese New Year, it belongs to previous year's zodiac
-  
-  // This is a simplified version. For accurate results, you would need 
-  // a complete Chinese New Year date table for all years
-  
-  // For demonstration, we'll use the mathematical formula:
-  // Animal cycle: (year - 1900) % 12
-  // Element cycle: (year - 1900) % 10
-  
   const animalIndex = ((y - 1900) % 12 + 12) % 12;
   const elementIndex = ((y - 1900) % 10 + 10) % 10;
   
@@ -1091,50 +1085,34 @@ function getUserZodiacFromDropdown(){
 
 /* ---------------- GENERATE TAB CONTENT ---------------- */
 function generateZodiacText(animal, element, year){
-  console.log("Generating zodiac text for:", animal, element, year);
-  
-  // 1. Generate General Info
-  let generalText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838;">
+  // 1. Generate General Info - SIMPLIFIED WITHOUT YEARS
+  let generalText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
                 <strong>Your Zodiac: ${element} ${animal} ${chineseSymbol[animal]} (${year})</strong>
               </div>
               <hr style="border: none; height: 1px; background-color: #972525; margin: 10px 0;">
-              <div style="font-size: 0.9em; line-height: 1.4;">
-                <strong>Other years by element:</strong><br>`;
-  
-  const years = zodiacYears[animal];
-  if(years) {
-    elements.forEach(el => {
-      if (years[el] && years[el].length > 0) {
-        // Show only years that make sense (not future ones too far ahead)
-        const relevantYears = years[el].filter(y => y <= 2100 && y >= 1900);
-        if (relevantYears.length > 0) {
-          generalText += `${el} ${elementChinese[el]}: ${relevantYears.join(', ')}<br>`;
-        }
-      }
-    });
-  }
-  
-  generalText += `<br><em style="font-size: 0.8em; color: #666;">Note: Chinese New Year falls between Jan 21-Feb 20. Birthdates before Chinese New Year belong to the previous zodiac year.</em>`;
-  generalText += "</div>";
+              <div style="font-size: 0.95em; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
+                <strong>Personality Traits:</strong><br>
+                ${zodiacStories[animal].split('. ')[1] || 'This zodiac sign has unique characteristics and traits.'}
+                <br><br>
+                <em style="font-size: 0.85em; color: #666;">Note: Chinese New Year falls between Jan 21-Feb 20.</em>
+              </div>`;
   
   // 2. Generate History content
-  const storyText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838;">
+  const storyText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
             <strong>The History of the ${animal}</strong>
           </div>
           <hr style="border: none; height: 1px; background-color: #972525; margin: 10px 0;">
-          <div style="font-size: 0.9em; line-height: 1.4;">
+          <div style="font-size: 0.95em; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
             <p>${zodiacStories[animal]}</p>
-            <p>The ${element} element influences the ${animal}'s personality, adding characteristics of ${getElementDescription(element)}.</p>
           </div>`;
   
-  // 3. Generate Elements content - YOUR ELEMENT FIRST
-  let elementsText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838;">
-                <strong>Chinese Zodiac Elements</strong>
+  // 3. Generate Elements content - NOW WITH YEARS AND COLORED BACKGROUNDS
+  let elementsText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
+                <strong>Chinese Zodiac Elements & Years for ${animal}</strong>
               </div>
               <hr style="border: none; height: 1px; background-color: #972525; margin: 10px 0;">
-              <div style="font-size: 0.9em; line-height: 1.4;">`;
+              <div style="font-size: 0.95em; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">`;
   
-  // Create a new array with your element first, then the rest
   const orderedElements = [element];
   elements.forEach(el => {
     if (el !== element) {
@@ -1144,21 +1122,35 @@ function generateZodiacText(animal, element, year){
   
   orderedElements.forEach(el => {
     const isCurrent = el === element;
-    elementsText += `<div style="margin-bottom: 10px; padding: 8px; background: ${isCurrent ? '#ffe6e9' : '#f9f9f9'}; border-radius: 6px; border-left: 3px solid ${isCurrent ? '#be3838' : '#972525'}">
+    const yearsForElement = zodiacYears[animal] && zodiacYears[animal][el] ? 
+      zodiacYears[animal][el].filter(y => y <= 2100 && y >= 1900) : [];
+    
+    // Get the color for this element
+    const elementColor = elementColors[el];
+    // For current element, use pink background, otherwise use element-specific color
+    const backgroundColor = isCurrent ? '#ffe6e9' : elementColor;
+    // For current element, use dark red border, otherwise use element-specific darker color
+    const borderColor = isCurrent ? '#be3838' : getDarkerColor(elementColor);
+    
+    elementsText += `<div style="margin-bottom: 15px; padding: 10px; background: ${backgroundColor}; border-radius: 6px; border-left: 4px solid ${borderColor}; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
               <strong>${el} ${elementChinese[el]}</strong><br>
-              ${elementDescriptions[el]}
-              ${isCurrent ? '<br><em style="color: #be3838; font-size: 0.85em;">(Your element)</em>' : ''}
+              ${elementDescriptions[el]}<br><br>
+              <strong>${el} ${animal} Years:</strong><br>
+              ${yearsForElement.length > 0 ? 
+                yearsForElement.join(', ') : 
+                'No years available for this element'}
+              ${isCurrent ? '<br><br><em style="color: #be3838; font-size: 1.2em; font-weight: bold;">✓ Your element & year</em>' : ''}
             </div>`;
   });
   
   elementsText += "</div>";
   
   // 4. Generate Famous People content
-  const famousText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838;">
+  const famousText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
             <strong>Famous ${animal}s</strong>
           </div>
           <hr style="border: none; height: 1px; background-color: #972525; margin: 10px 0;">
-          <div style="font-size: 0.8em; line-height: 1.3;">
+          <div style="font-size: 0.9em; line-height: 1.3; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
             ${famousPeople[animal].join("<br>")}
           </div>`;
   
@@ -1167,20 +1159,19 @@ function generateZodiacText(animal, element, year){
   document.getElementById("story").innerHTML = storyText;
   document.getElementById("elements").innerHTML = elementsText;
   document.getElementById("famous").innerHTML = famousText;
-  
-  console.log("Content generated and set in DOM");
 }
 
-/* ---------------- HELPER FUNCTIONS ---------------- */
-function getElementDescription(element){
-  const descriptions = {
-    "Wood": "growth and creativity",
-    "Fire": "passion and energy", 
-    "Earth": "stability and practicality",
-    "Metal": "determination and strength",
-    "Water": "wisdom and intuition"
+/* ---------------- HELPER FUNCTION FOR DARKER COLORS ---------------- */
+function getDarkerColor(hexColor) {
+  // Simple function to darken a hex color
+  const colorMap = {
+    "#e8f5e9": "#D2AB6F", // Wood - darker green
+    "#ffebee": "#e57373", // Fire - darker red
+    "#fff3e0": "#ffb74d", // Earth - darker orange
+    "#f5f5f5": "#bdbdbd", // Metal - darker gray
+    "#e3f2fd": "#64b5f6"  // Water - darker blue
   };
-  return descriptions[element];
+  return colorMap[hexColor] || "#972525"; // Default to red if not found
 }
 
 /* ---------------- INITIALIZE REELS ---------------- */
@@ -1227,7 +1218,6 @@ function fireConfetti(){
     colors: ['#CC232A', '#FFD84B', '#F2888B', '#A3262A', '#CC9902', '#00A36C', '#F5AC27']
   };
   
-  // Multiple confetti bursts
   confetti({
     ...defaults,
     particleCount: 150,
@@ -1320,7 +1310,6 @@ function startSpin(){
   }
   
   const {animal, element, year} = getUserZodiacFromDropdown();
-  console.log("Calculated zodiac:", animal, element, year);
   
   const reels = [
     document.getElementById("reel1"),
