@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Diphylleia&display=swap" rel="stylesheet">
 
 <style>
-/* RESET AND BASE */
+/* BASE */
 * {
   margin: 0;
   padding: 0;
@@ -49,7 +49,7 @@ body {
   background-color: transparent !important; /* TRANSPARENT BACKGROUND */
 }
 
-/* CHINESE PATTERN BACKGROUND */
+/* PATTERN BACKGROUND */
 body::before {
   content: "";
   position: fixed;
@@ -82,11 +82,6 @@ body::before {
   z-index: 10;
 }
 
-/* REMOVED CHINESE CLOUD DECORATIONS AND RED DOT */
-.cloud-decoration {
-  display: none; /* REMOVED ALL CLOUD DECORATIONS */
-}
-
 /* TITLE IMAGE ONLY */
 #title-img {
   display: block;
@@ -95,11 +90,6 @@ body::before {
   margin: 0 auto max(15px, 2vw) auto;
   max-width: 100%;
   filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
-}
-
-/* REMOVED ALL CHINESE TITLE STYLING */
-.chinese-title {
-  display: none; /* REMOVED 十二生肖 */
 }
 
 /* LANTERNS CONTAINER */
@@ -156,11 +146,6 @@ body::before {
   0% { transform: rotate(8deg); }
   50% { transform: rotate(-8deg); }
   100% { transform: rotate(8deg); } 
-}
-
-/* REMOVED CHINESE KNOT DECORATION */
-.knot-decoration {
-  display: none; /* REMOVED THE KNOT */
 }
 
 /* CONTENT WRAPPER - RESPONSIVE */
