@@ -1794,10 +1794,10 @@ function collapseToSingleSlot(animal){
     document.querySelector('.tabs-wrapper').classList.add('active');
     resultsShown = true; // Mark that results are now shown
     
-    // SET TIMER TO STOP FIREWORKS AFTER 5 SECONDS
+    // SET TIMER TO STOP FIREWORKS AFTER 4 SECONDS
     setTimeout(() => {
       fireworks.stop();
-    }, 5000);
+    }, 4000);
     
     // Scroll to tabs on mobile
     if (window.innerWidth < 768) {
