@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Diphylleia&display=swap" rel="stylesheet">
 
 <style>
-/* === YOUR EXACT STYLING - COMPLETELY PRESERVED === */
+/* === STYLING === */
 * {
   margin: 0;
   padding: 0;
@@ -787,7 +787,7 @@ select:focus {
 </div>
 
 <script>
-// ============ 🌸 SAKURA PETALS - KEPT EXACTLY AS YOU WROTE IT 🌸 ============
+// === 🌸 SAKURA PETALS - KEPT EXACTLY AS YOU WROTE IT 🌸 ===
 const sakuraCanvas = document.getElementById('sakuraCanvas');
 const sakCtx = sakuraCanvas.getContext('2d');
 
@@ -967,7 +967,7 @@ window.addEventListener('beforeunload', function() {
   if (resizeTimeout) clearTimeout(resizeTimeout);
 });
 
-// ============ FIREWORKS - KEPT EXACTLY AS YOU WROTE IT ============
+// === FIREWORKS ===
 class Fireworks {
   constructor(canvas) {
     this.canvas = canvas;
@@ -1224,9 +1224,9 @@ class Fireworks {
 const fireworksCanvas = document.getElementById('fireworksCanvas');
 const fireworks = new Fireworks(fireworksCanvas);
 
-// ============ 🎯 ONLY THE FACTUAL ERRORS ARE FIXED BELOW - YOUR FORMATTING STAYS EXACTLY THE SAME 🎯 ============
+// === FORMATTING ===
 
-// === FIX #1: CORRECTED ANIMAL ORDER AND SYMBOLS (your order was correct, keeping it) ===
+// === ANIMAL ORDER AND SYMBOLS ===
 const animals = ["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"];
 const chineseSymbol = { 
   Rat:'鼠', Ox:'牛', Tiger:'虎', Rabbit:'兔', 
@@ -1237,7 +1237,7 @@ const chineseSymbol = {
 const elements = ["Wood","Fire","Earth","Metal","Water"];
 const elementChinese = { Wood:'木', Fire:'火', Earth:'土', Metal:'金', Water:'水' };
 
-// === FIX #2: ADDED CHINESE NEW YEAR DATES (CRITICAL FOR ACCURACY) ===
+// === CHINESE NEW YEAR DATES ===
 const chineseNewYear = {
   1900: "1900-01-31", 1901: "1901-02-19", 1902: "1902-02-08", 1903: "1903-01-29",
   1904: "1904-02-16", 1905: "1905-02-04", 1906: "1906-01-25", 1907: "1907-02-13",
@@ -1274,7 +1274,7 @@ const chineseNewYear = {
   2028: "2028-01-26", 2029: "2029-02-13", 2030: "2030-02-03"
 };
 
-// === FIX #3: CORRECTED ZODIAC CALCULATION WITH CNY ===
+// === ZODIAC CALCULATION WITH CNY ===
 function getAuthenticZodiac(year, month, day) {
   year = parseInt(year);
   month = parseInt(month);
@@ -1300,7 +1300,7 @@ function getAuthenticZodiac(year, month, day) {
   return animals[animalIndex];
 }
 
-// === FIX #4: CORRECTED ELEMENT CALCULATION ===
+// === ELEMENT CALCULATION ===
 function getAuthenticElement(year, month, day) {
   year = parseInt(year);
   month = parseInt(month);
@@ -1315,7 +1315,7 @@ function getAuthenticElement(year, month, day) {
     }
   }
   
-  // Correct 10-year stem cycle
+  //  10-year stem cycle
   const stemIndex = ((year - 4) % 10 + 10) % 10;
   
   if (stemIndex === 0 || stemIndex === 1) return "Wood";
@@ -1327,7 +1327,7 @@ function getAuthenticElement(year, month, day) {
   return "Wood";
 }
 
-// === FIX #5: CORRECTED FAMOUS PEOPLE (removed duplicates, fixed Mozart) ===
+// === FAMOUS PEOPLe ===
 const famousPeople = {
   "Rat": ["Severus Snape: born on January 9, 1960, a Metal Rat 鼠", "Wolfgang Amadeus Mozart: born on January 27, 1756, a Fire Rat 鼠", "Samuel L. Jackson: born on December 21, 1948, an Earth Rat 鼠", "Avril Lavigne: born on September 27, 1984, a Wood Rat 鼠", "Tom Holland: born on June 1, 1996, a Fire Rat 鼠"],
   "Ox": ["Barack Obama: born on August 4, 1961, a Metal Ox 牛", "Vincent Van Gogh: born on March 30, 1853, a Water Ox 牛", "Walt Disney: born on December 5, 1901, a Metal Ox 牛", "Meryl Streep: born on June 22, 1949, an Earth Ox 牛"],
@@ -1343,7 +1343,7 @@ const famousPeople = {
   "Pig": ["Barbra Streisand: born on April 24, 1942, a Water Pig 豬", "Henry Cavill: born on May 5, 1983, a Water Pig 豬", "Cristiano Ronaldo: born on February 5, 1985, a Wood Pig 豬", "Jackie Chan: born on April 7, 1954, a Wood Pig 豬", "Bad Bunny: born on March 10, 1994, a Wood Pig 豬", "Daniel Radcliffe: born on July 23, 1989, an Earth Pig 豬", "Lucy Liu: born on December 2, 1968, an Earth Pig 豬"]
 };
 
-// === FIX #6: CORRECTED STORY (removed embellishments) ===
+// === STORY ===
 const zodiacStory = {
   "Rat": "The Rat won the race by riding on the Ox's back and jumping off at the last moment. Rats represent intelligence and wealth in Chinese culture. People born in Rat years are quick-witted and resourceful.",
   "Ox": "The Ox finished second, swimming steadily across the river. Oxen represent diligence and strength. Those born in Ox years are patient, methodical, and dependable.",
@@ -1369,7 +1369,7 @@ const chineseGreetings = [
   "Niánnián yǒuyú (年年有餘) - Abundance year after year"
 ];
 
-// Chinese hours (correct)
+// Chinese hours
 const chineseHours = {
   "Rat": "11 PM - 1 AM (子時 - Zishi)",
   "Ox": "1 AM - 3 AM (丑時 - Choushi)",
@@ -1385,7 +1385,7 @@ const chineseHours = {
   "Pig": "9 PM - 11 PM (亥時 - Haishi)"
 };
 
-// === YOUR ORIGINAL LUCKY DATA - KEPT EXACTLY AS YOU WROTE IT (flowers and all!) ===
+// === LUCKY DATA ===
 const luckyData = {
   "Rat": { 
     numbers: [2, 3], 
@@ -1485,7 +1485,7 @@ const luckyData = {
   }
 };
 
-// === FIX #7: CORRECTED ZODIAC YEARS TABLE ===
+// === ZODIAC YEARS TABLE ===
 const zodiacYears = {
   "Rat": { 
     "Wood":[1924,1984,2044],
@@ -1591,7 +1591,7 @@ const elementDescriptions = {
   "Water": "Water represents wisdom, intuition, and adaptability. Water signs are perceptive, empathetic, and deeply emotional."
 };
 
-// ============ YOUR EXACT FORMATTING - PRESERVED ============
+// ===FORMATTING ===
 let originalReelsHTML = null;
 let isSpinning = false;
 let resultsShown = false;
@@ -1646,7 +1646,7 @@ function initBirthdayDropdowns(){
   year.addEventListener('change', hideResults);
 }
 
-// === FIX #8: CORRECTED USER ZODIAC FUNCTION ===
+// === USER ZODIAC FUNCTION ===
 function getUserZodiacFromDropdown(){
   const y = parseInt(document.getElementById("year").value);
   const m = parseInt(document.getElementById("month").value);
@@ -1658,7 +1658,7 @@ function getUserZodiacFromDropdown(){
   return {animal: animal, element: element, year: y};
 }
 
-// === YOUR ORIGINAL GENERATE ZODIAC TEXT - ONLY THE STORY IS UPDATED ===
+// === GENERATE ZODIAC TEXT ===
 function generateZodiacText(animal, element, year){
   const animalWithChinese = addChineseCharacter(animal);
   const elementWithChinese = `${element} <span class="chinese-char">${elementChinese[element]}</span>`;
@@ -1693,7 +1693,7 @@ function generateZodiacText(animal, element, year){
                 <em style="font-size: 0.85em; color: #666;">Note: Chinese New Year falls between Jan 21-Feb 20. If born in Jan/Feb, you might be previous year's zodiac.</em>
               </div>`;
   
-  // 2. Story - USING CORRECTED STORY
+  // 2. Story - STORY
   const storyText = `<div style="font-size: 1em; margin-bottom: 10px; color: #be3838; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: normal;">
             <strong>The Legend of the ${animalWithChinese}</strong>
           </div>
@@ -1739,7 +1739,7 @@ function generateZodiacText(animal, element, year){
   
   elementsText += "</div>";
   
-  // 4. Famous People - USING CORRECTED DATA
+  // 4. Famous People - USING DATA
   const animalPlural = animal === "Ox" ? "Oxen" : 
                       animal === "Goat" ? "Goats" :
                       animal.endsWith("s") || animal.endsWith("x") || animal.endsWith("ch") || animal.endsWith("sh") ? 
